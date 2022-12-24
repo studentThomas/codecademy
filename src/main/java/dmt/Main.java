@@ -14,9 +14,9 @@ public class Main {
         ArrayList<Person> persons = new ArrayList<>();
         System.out.println("Persons");
 
-        String url = "jdbc:sqlserver://aei-sql2.avans.nl:1443", user = "GeoGSSR", password = "Error404";
-        try (Connection db = DriverManager.getConnection(url, user, password)) {
-            PreparedStatement query = db.prepareStatement("SELECT * FROM Person");
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement("SELECT * FROM Person");
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
