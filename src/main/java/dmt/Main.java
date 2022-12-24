@@ -3,7 +3,7 @@ package dmt;
 import java.util.ArrayList;
 import java.sql.*;
 
-public class Codecademy {
+public class Main {
     public static void main(String[] args) {
         // Create a module
         addPersons();
