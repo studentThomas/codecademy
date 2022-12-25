@@ -2,6 +2,7 @@ package dmt;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class Person {
     private String email;
@@ -23,6 +24,29 @@ public class Person {
         this.city = city;
         this.country = country;
         this.courses = new ArrayList<>();
+    }
+
+    public void getEnrolledCourses() {
+        // TODO: get all enrolled coursed and add them to arraylist
+
+        // TODO: do this with join statemtn. Join with id.
+
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement("SELECT * FROM CourseEnrollment WHERE Email = ?");
+            query.setString(1, this.email);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                String email = result.getString("Email");
+                int courseID = result.getInt("CourseID");
+                int certificateID = result.getInt("CertificateID");
+                System.out.println(email + "   " + courseID + certificateID + "\n");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String toString() {

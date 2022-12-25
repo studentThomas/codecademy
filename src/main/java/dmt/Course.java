@@ -9,6 +9,7 @@ public class Course {
     private String introduction;
     private String level;
     private Date registrationDate;
+    private Person person;
     private ArrayList<Module> modules;
 
     public Course(String name, String subject, String introduction, String level) {
@@ -19,6 +20,10 @@ public class Course {
         this.modules = new ArrayList<Module>();
     }
 
-    // haal data op uit coursenrollement op email van persoon. Dan course ophalen
-    // uit naam van course uit courseenroolemnt
+    // TODO: Add certicaat
+
+    // TODO: get data from database en print that
+
+    // TODO: print all modules in course they have the same ID
+
 }
