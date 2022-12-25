@@ -3,6 +3,13 @@ package dmt;
 import java.util.ArrayList;
 import java.sql.*;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
 public class Main {
     public static void main(String[] args) {
         // Create a module
@@ -44,6 +51,7 @@ public class Main {
             // TODO: Javax button. When clicked it goes to a different page and can see
             // person profile
             // person.getEnrolledCourses();
+
         }
     }
 
