@@ -29,7 +29,10 @@ public class HomeUI extends Application {
             vBox.getChildren().add(button);
 
             button.setOnAction((event) -> {
-                System.out.println("Clicked");
+                Stage personWindow = new Stage();
+                personWindow.setTitle(person.getName());
+                personWindow.show();
+                stage.close();
             });
 
         }
