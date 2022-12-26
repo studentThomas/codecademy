@@ -13,23 +13,21 @@ import javafx.stage.Stage;
 public class Main {
     public static void main(String[] args) {
         // Create a module
-
-        // getPersons();
+        getPersons();
         addPerson();
-        // Person person = new Person(null, null, null, null, null, null, null);
-        // person.getEnrolledCourses();
 
     }
 
     public static void getPersons() {
         ArrayList<Person> persons = new ArrayList<>();
-        System.out.println("Persons");
 
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement("SELECT * FROM Person");
             ResultSet result = query.executeQuery();
 
+            // Explained: Gets data from all tables in database en creates new Person and
+            // puts that in Arraylist
             while (result.next()) {
                 String email = result.getString("Email");
                 String name = result.getString("Name");
@@ -50,6 +48,7 @@ public class Main {
 
     }
 
+    // TODO: Input field for data
     public static void addPerson() {
 
         try {
@@ -57,12 +56,12 @@ public class Main {
             PreparedStatement query = connection.prepareStatement(
                     "INSERT INTO Person (Email, Name, DoB, Gender, Adress, Country, City) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-            // Set the values for the insert query
-            query.setString(1, "sander@example.com");
-            query.setString(2, "Sander Smith");
+            // Explained: Sets the values for the insert query
+            query.setString(1, "Zevi@example.com");
+            query.setString(2, "Z Smith");
             query.setDate(3, Date.valueOf("1980-01-01"));
             query.setString(4, "male");
-            query.setString(5, "123 Above Street.");
+            query.setString(5, "123 Z Street.");
             query.setString(6, "Nederlands");
             query.setString(7, "Ablasserdam");
             int rowsAffected = query.executeUpdate();
@@ -73,6 +72,7 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        getPersons();
 
     }
 
@@ -87,6 +87,20 @@ public class Main {
         }
     }
 
+    public static void start(Stage stage, ArrayList<Person> persons) {
+        ScrollPane scrollPane = new ScrollPane();
+        VBox vBox = new VBox();
+        for (Person person : persons) {
+            vBox.getChildren().add(new Button("Button " + person.getName()));
+        }
+
+        scrollPane.setContent(vBox);
+
+        Scene scene = new Scene(scrollPane, 300, 250);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public static void getCourse() {
         // TODO: Get all courses in course. When clicked show info. When no one follows
         // that course display that
@@ -94,6 +108,10 @@ public class Main {
     }
 
     public static void addCourse() {
+
+    }
+
+    public static void ShowCourse() {
 
     }
 

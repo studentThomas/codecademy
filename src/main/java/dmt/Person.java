@@ -54,4 +54,32 @@ public class Person {
                 + "\n";
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Date getDateOfBirth() {
+        return this.dateOfBirth;
+    }
+
+    public String getGender() {
+        return this.gender;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public String getCountry() {
+        return this.country;
+    }
+
 }

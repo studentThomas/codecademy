@@ -26,4 +26,28 @@ public class Course {
 
     // TODO: print all modules in course they have the same ID
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getSubject() {
+        return this.subject;
+    }
+
+    public String getIntroduction() {
+        return this.introduction;
+    }
+
+    public String getLevel() {
+        return this.level;
+    }
+
+    public Date getRegistrationDate() {
+        return this.registrationDate;
+    }
+
+    public Person getPerson() {
+        return this.person;
+    }
+
 }
