@@ -45,6 +45,25 @@ public class Main {
             e.printStackTrace();
         }
 
+        showPerson(persons);
+
+    }
+
+    // public static void addPerson() {
+
+    // try {
+    // Connection connection =
+    // DatabaseConnectionManager.getInstance().getConnection();
+    // PreparedStatement query = connection.prepareStatement("INSERT INTO Person
+    // ()");
+    // ResultSet result = query.executeQuery();
+
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // }
+    // }
+
+    public static void showPerson(ArrayList<Person> persons) {
         for (Person person : persons) {
             System.out.println(person.toString());
 
@@ -53,10 +72,6 @@ public class Main {
             // person.getEnrolledCourses();
 
         }
-    }
-
-    public static void addPerson() {
-
     }
 
     public static void getCourse() {
