@@ -13,7 +13,7 @@ public class Main {
         // getPersons();
         // addPerson();
 
-        Application.launch(ScrollPaneExample.class, args);
+        Application.launch(HomeUI.class, args);
 
     }
 

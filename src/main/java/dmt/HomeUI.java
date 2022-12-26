@@ -10,7 +10,7 @@ import dmt.Main;
 import dmt.PersonData;
 import java.util.ArrayList;
 
-public class ScrollPaneExample extends Application {
+public class HomeUI extends Application {
     public static void main(String[] args) {
         System.out.println("Hallo");
         launch(args);
