@@ -6,6 +6,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch HomeUI",
+            "request": "launch",
+            "mainClass": "dmt.HomeUI",
+            "projectName": "codecademy",
+            "vmArgs": "-p /Users/thomas/Documents/javafx-sdk-19/lib --add-modules javafx.controls"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

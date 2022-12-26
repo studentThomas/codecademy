@@ -6,8 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import dmt.Main;
-import dmt.PersonData;
+
 import java.util.ArrayList;
 
 public class HomeUI extends Application {
@@ -25,7 +24,14 @@ public class HomeUI extends Application {
         // vBox.getChildren().add(new Button("Button " + i));
         // }
         for (Person person : persons) {
-            vBox.getChildren().add(new Button("Button " + person.getName()));
+            Button button = new Button();
+            button.setText(person.getName());
+            vBox.getChildren().add(button);
+
+            button.setOnAction((event) -> {
+                System.out.println("Clicked");
+            });
+
         }
 
         scrollPane.setContent(vBox);

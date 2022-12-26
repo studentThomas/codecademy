@@ -1,8 +1,5 @@
 package dmt;
 
-import java.util.ArrayList;
-import java.sql.*;
-
 import javafx.application.Application;
 
 public class Main {
