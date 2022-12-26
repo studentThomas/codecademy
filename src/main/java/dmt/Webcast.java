@@ -1,5 +1,7 @@
 package dmt;
 
+import java.sql.Date;
+
 public class Webcast extends ContentItem {
     private String title;
     private String description;

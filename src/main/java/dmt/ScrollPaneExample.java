@@ -6,21 +6,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import dmt.Main;
+import dmt.PersonData;
+import java.util.ArrayList;
 
 public class ScrollPaneExample extends Application {
-
     public static void main(String[] args) {
         System.out.println("Hallo");
         launch(args);
     }
 
-    @Override
     public void start(Stage stage) {
+        ArrayList<Person> persons = PersonData.getPersons();
         ScrollPane scrollPane = new ScrollPane();
 
         VBox vBox = new VBox();
-        for (int i = 0; i < 40; i++) {
-            vBox.getChildren().add(new Button("Button " + i));
+        // for (int i = 0; i < 40; i++) {
+        // vBox.getChildren().add(new Button("Button " + i));
+        // }
+        for (Person person : persons) {
+            vBox.getChildren().add(new Button("Button " + person.getName()));
         }
 
         scrollPane.setContent(vBox);

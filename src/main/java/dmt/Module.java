@@ -1,5 +1,7 @@
 package dmt;
 
+import java.sql.Date;
+
 public class Module extends ContentItem {
 
     private String title;
