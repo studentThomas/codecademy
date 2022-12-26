@@ -6,15 +6,16 @@ import java.sql.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main {
     public static void main(String[] args) {
         // Create a module
 
-        getPersons();
+        // getPersons();
+        addPerson();
         // Person person = new Person(null, null, null, null, null, null, null);
         // person.getEnrolledCourses();
 
@@ -49,19 +50,31 @@ public class Main {
 
     }
 
-    // public static void addPerson() {
+    public static void addPerson() {
 
-    // try {
-    // Connection connection =
-    // DatabaseConnectionManager.getInstance().getConnection();
-    // PreparedStatement query = connection.prepareStatement("INSERT INTO Person
-    // ()");
-    // ResultSet result = query.executeQuery();
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "INSERT INTO Person (Email, Name, DoB, Gender, Adress, Country, City) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-    // }
+            // Set the values for the insert query
+            query.setString(1, "sander@example.com");
+            query.setString(2, "Sander Smith");
+            query.setDate(3, Date.valueOf("1980-01-01"));
+            query.setString(4, "male");
+            query.setString(5, "123 Above Street.");
+            query.setString(6, "Nederlands");
+            query.setString(7, "Ablasserdam");
+            int rowsAffected = query.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Data inserted successfully");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public static void showPerson(ArrayList<Person> persons) {
         for (Person person : persons) {

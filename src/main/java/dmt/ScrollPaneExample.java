@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 public class ScrollPaneExample extends Application {
 
     public static void main(String[] args) {
+        System.out.println("Hallo");
         launch(args);
     }
 
