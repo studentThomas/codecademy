@@ -13,6 +13,7 @@ public class Person {
     private String city;
     private String country;
     private ArrayList<Course> courses;
+    private ArrayList<Webcast> webcasts;
 
     public Person(String email, String name, Date dateOfBirth, String gender, String address, String city,
             String country) {
@@ -24,24 +25,45 @@ public class Person {
         this.city = city;
         this.country = country;
         this.courses = new ArrayList<>();
+        this.webcasts = new ArrayList<>();
     }
 
-    public void getEnrolledCourses() {
-        // TODO: get all enrolled coursed and add them to arraylist
-
-        // TODO: do this with join statemtn. Join with id.
-
+    public void getViewedWebcasts() {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement query = connection.prepareStatement("SELECT * FROM CourseEnrollment WHERE Email = ?");
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT Webcast.Title, Webcast.Id, WebcastViewed.Id, WebcastViewed.Email FROM Webcast JOIN WebcastViewed ON Webcast.Id = WebcastViewed.Id WHERE WebcastViewed.Email = ?");
             query.setString(1, this.email);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
                 String email = result.getString("Email");
-                int courseID = result.getInt("CourseID");
-                int certificateID = result.getInt("CertificateID");
-                System.out.println(email + "   " + courseID + certificateID + "\n");
+                String title = result.getString("Title");
+                int id = result.getInt("Id");
+                System.out.println(email + "   " + id + "  " + title + "\n");
+                this.courses.add(new Course(title, title, email, title));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getEnrolledCourses() {
+        // TODO: get all enrolled coursed and add them to arraylist
+
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT Course.CourseId, CourseEnrollment.CourseId, Course.CourseLevel, CourseEnrollment.Email FROM Course JOIN CourseEnrollment ON Course.CourseId = CourseEnrollment.CourseId WHERE CourseEnrollment.Email = ?");
+            query.setString(1, this.email);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("CourseId");
+                String email = result.getString("Email");
+                String level = result.getString("CourseLevel");
+                System.out.println(id + "  " + level + "   " + email + "\n");
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

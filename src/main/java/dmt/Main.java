@@ -10,7 +10,13 @@ public class Main {
         // getPersons();
         // addPerson();
 
-        Application.launch(HomeUI.class, args);
+        Person person = new Person("Barry@gmail.com", null, null, null, null, null, null);
+        System.out.println("Webcasts");
+        person.getViewedWebcasts();
+        System.out.println("Courses");
+        person.getEnrolledCourses();
+
+        // Application.launch(HomeUI.class, args);
 
     }
 
