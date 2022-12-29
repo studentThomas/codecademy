@@ -29,13 +29,13 @@ public class PersonUI extends Application{
         Label labelDate = new Label("Select a date:");
         DatePicker datePicker = new DatePicker();
 
-        Label labelGender = new Label("Enter your name:");
+        Label labelGender = new Label("Enter your gender:");
         TextField inputGender = new TextField();
 
-        Label labelCity = new Label("Enter your name:");
+        Label labelCity = new Label("Enter your city:");
         TextField inputCity = new TextField();
 
-        Label labelCountry = new Label("Enter your name:");
+        Label labelCountry = new Label("Enter your country:");
         TextField inputCountry = new TextField();
 
         Button confirmButton = new Button("Confirm");
