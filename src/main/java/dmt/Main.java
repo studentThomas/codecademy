@@ -16,7 +16,8 @@ public class Main {
         System.out.println("Courses");
         person.getEnrolledCourses();
 
-        // Application.launch(HomeUI.class, args);
+        Application.launch(HomeUI.class, args);
+        // Application.launch(PersonUI.class, args);
 
     }
 
