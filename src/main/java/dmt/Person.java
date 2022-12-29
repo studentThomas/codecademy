@@ -54,14 +54,14 @@ public class Person {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
-                    "SELECT Course.CourseId, CourseEnrollment.CourseId, Course.CourseLevel, CourseEnrollment.Email FROM Course JOIN CourseEnrollment ON Course.CourseId = CourseEnrollment.CourseId WHERE CourseEnrollment.Email = ?");
+                    "SELECT Course.Id, CourseEnrollment.Id, Course.Level, CourseEnrollment.Email FROM Course JOIN CourseEnrollment ON Course.Id = CourseEnrollment.Id WHERE CourseEnrollment.Email = ?");
             query.setString(1, this.email);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
-                int id = result.getInt("CourseId");
+                int id = result.getInt("Id");
                 String email = result.getString("Email");
-                String level = result.getString("CourseLevel");
+                String level = result.getString("Level");
                 System.out.println(id + "  " + level + "   " + email + "\n");
 
             }
