@@ -1,4 +1,4 @@
-package dmt;
+package dmt.UI;
 
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import dmt.PersonUI;
 
 import java.util.ArrayList;
 
