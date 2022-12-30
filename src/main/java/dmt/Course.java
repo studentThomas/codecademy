@@ -1,30 +1,64 @@
 package dmt;
 
+import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
 
 public class Course {
+    private int id;
     private String name;
     private String subject;
     private String introduction;
     private String level;
-    private Date registrationDate;
-    private Person person;
-    private ArrayList<Module> modules;
+    private ArrayList<ContentItem> modules;
 
-    public Course(String name, String subject, String introduction, String level) {
+    public Course(int id, String name, String subject, String introduction, String level) {
+        this.id = id;
         this.name = name;
         this.subject = subject;
         this.introduction = introduction;
         this.level = level;
-        this.modules = new ArrayList<Module>();
+        this.modules = new ArrayList<>();
     }
 
     // TODO: Add certicaat
 
     // TODO: get data from database en print that
 
-    // TODO: print all modules in course they have the same ID
+    // TODO: print all modules in course they have the same ID course -> serial
+    // number module
+    public void getModules() {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Module WHERE SerialNumber = ?");
+            query.setInt(1, this.id);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int serialNumber = result.getInt("SerialNumber");
+                String title = result.getString("Title");
+                int version = result.getInt("Version");
+                int progress = result.getInt("Progress");
+                String description = result.getString("Description");
+                String contactName = result.getString("ContactName");
+                String contactEmail = result.getString("ContactEmail");
+                Date publicationDate = result.getDate("PublicationDate");
+
+                this.modules.add(new Module(progress, publicationDate, contactEmail, title, description, version,
+                        contactName, contactEmail, progress, serialNumber));
+
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+
+        for (ContentItem module : modules) {
+            System.out.println(module);
+        }
+    }
 
     public String getName() {
         return this.name;
@@ -40,14 +74,6 @@ public class Course {
 
     public String getLevel() {
         return this.level;
-    }
-
-    public Date getRegistrationDate() {
-        return this.registrationDate;
-    }
-
-    public Person getPerson() {
-        return this.person;
     }
 
 }

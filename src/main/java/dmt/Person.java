@@ -13,7 +13,7 @@ public class Person {
     private String city;
     private String country;
     private ArrayList<Course> courses;
-    private ArrayList<Webcast> webcasts;
+    private ArrayList<ContentItem> webcasts;
 
     public Person(String email, String name, Date dateOfBirth, String gender, String address, String city,
             String country) {
@@ -32,41 +32,61 @@ public class Person {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
-                    "SELECT Webcast.Title, Webcast.Id, WebcastViewed.Id, WebcastViewed.Email FROM Webcast JOIN WebcastViewed ON Webcast.Id = WebcastViewed.Id WHERE WebcastViewed.Email = ?");
+                    "SELECT * FROM Webcast JOIN WebcastViewed ON Webcast.Id = WebcastViewed.Id WHERE WebcastViewed.Email = ?");
             query.setString(1, this.email);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
-                String email = result.getString("Email");
-                String title = result.getString("Title");
                 int id = result.getInt("Id");
-                System.out.println(email + "   " + id + "  " + title + "\n");
-                this.courses.add(new Course(title, title, email, title));
+                String title = result.getString("Title");
+                String description = result.getString("Description");
+                String speakerName = result.getString("SpeakerName");
+                String organization = result.getString("Organization");
+                int watchTime = result.getInt("WatchTime");
+                Date publicationDate = result.getDate("PublicationDate");
+                String url = result.getString("Url");
+                int progress = result.getInt("Progress");
+
+                this.webcasts.add(new Webcast(id, publicationDate, url, title, description, speakerName, organization,
+                        progress, watchTime));
+
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+
+        for (ContentItem webcast : webcasts) {
+            System.out.println(webcast.getTitle());
+        }
+
+    }
+
+    public void getEnrolledCourses() {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Course JOIN CourseEnrolled ON Course.Id = CourseEnrolled.Id WHERE CourseEnrolled.Email = ?");
+            query.setString(1, this.email);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("Id");
+                String name = result.getString("Name");
+                String subject = result.getString("Subject");
+                String introduction = result.getString("Introduction");
+                String level = result.getString("Level");
+
+                this.courses.add(new Course(id, name, subject, introduction, level));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
-    public void getEnrolledCourses() {
-        // TODO: get all enrolled coursed and add them to arraylist
-
-        try {
-            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement query = connection.prepareStatement(
-                    "SELECT Course.Id, CourseEnrollment.Id, Course.Level, CourseEnrollment.Email FROM Course JOIN CourseEnrollment ON Course.Id = CourseEnrollment.Id WHERE CourseEnrollment.Email = ?");
-            query.setString(1, this.email);
-            ResultSet result = query.executeQuery();
-
-            while (result.next()) {
-                int id = result.getInt("Id");
-                String email = result.getString("Email");
-                String level = result.getString("Level");
-                System.out.println(id + "  " + level + "   " + email + "\n");
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for (Course course : courses) {
+            System.out.println(course.getName());
         }
 
     }
