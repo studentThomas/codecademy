@@ -23,4 +23,13 @@ public class Webcast extends ContentItem {
         return this.organization;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                " speakerName='" + speakerName + "'" +
+                ", organization='" + organization + "'" +
+                ", watchTime='" + watchTime + "'" +
+                "}";
+    }
+
 }

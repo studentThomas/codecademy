@@ -76,4 +76,16 @@ public class Course {
         return this.level;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                " id='" + id + "'" +
+                ", name='" + name + "'" +
+                ", subject='" + subject + "'" +
+                ", introduction='" + introduction + "'" +
+                ", level='" + level + "'" +
+                ", modules='" + modules + "'" +
+                "}";
+    }
+
 }

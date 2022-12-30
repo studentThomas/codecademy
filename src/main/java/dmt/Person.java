@@ -58,7 +58,7 @@ public class Person {
         }
 
         for (ContentItem webcast : webcasts) {
-            System.out.println(webcast.getTitle());
+            System.out.println(webcast);
         }
 
     }
@@ -86,7 +86,7 @@ public class Person {
         }
 
         for (Course course : courses) {
-            System.out.println(course.getName());
+            System.out.println(course);
         }
 
     }

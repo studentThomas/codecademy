@@ -10,13 +10,14 @@ public class Main {
         // getPersons();
         // addPerson();
 
-        // Person person = new Person("Barry@gmail.com", null, null, null, null, null,
-        // null);
-        // System.out.println("Webcasts");
-        // person.getViewedWebcasts();
-        // System.out.println("Courses");
-        // person.getEnrolledCourses();
+        Person person = new Person("Barry@gmail.com", null, null, null, null, null,
+                null);
+        System.out.println("Webcasts" + "\n");
+        person.getViewedWebcasts();
+        System.out.println("Courses" + "\n");
+        person.getEnrolledCourses();
 
+        System.out.println("Modules");
         Course course = new Course(1, null, null, null, null);
         course.getModules();
 
