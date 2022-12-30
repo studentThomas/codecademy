@@ -10,33 +10,24 @@ public class Main {
         // getPersons();
         // addPerson();
 
-        Person person = new Person("Barry@gmail.com", null, null, null, null, null,
+        Person person = new Person("EchteMark@gmail.com", null, null, null, null, null,
                 null);
-        System.out.println("Webcasts" + "\n");
-        person.getViewedWebcasts();
-        System.out.println("Courses" + "\n");
+        // System.out.println("\n" + "Webcasts");
+        // person.getViewedWebcasts();
+        System.out.println("\n" + "Courses");
         person.getEnrolledCourses();
 
-        System.out.println("Modules");
-        Course course = new Course(1, null, null, null, null);
-        course.getModules();
+        System.out.println("\n" + "Modules");
+        person.getModules();
+
+        person.getCertificate();
+
+        // System.out.println("Modules");
+        // Course course = new Course(1, null, null, null, null);
+        // course.getModules();
 
         // Application.launch(HomeUI.class, args);
         // Application.launch(PersonUI.class, args);
-
-    }
-
-    public static void getCourse() {
-        // TODO: Get all courses in course. When clicked show info. When no one follows
-        // that course display that
-
-    }
-
-    public static void addCourse() {
-
-    }
-
-    public static void ShowCourse() {
 
     }
 

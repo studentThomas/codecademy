@@ -40,4 +40,8 @@ public class ContentItem {
         return this.description;
     }
 
+    public int getProgress() {
+        return this.progress;
+    }
+
 }

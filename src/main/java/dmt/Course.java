@@ -27,12 +27,13 @@ public class Course {
 
     // TODO: print all modules in course they have the same ID course -> serial
     // number module
-    public void getModules() {
+    public ArrayList<ContentItem> getModules(String email) {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
-                    "SELECT * FROM Module WHERE SerialNumber = ?");
+                    "SELECT * FROM Module JOIN ModuleViewed ON Module.Id = ? WHERE Email = ? ");
             query.setInt(1, this.id);
+            query.setString(2, email);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
@@ -45,6 +46,8 @@ public class Course {
                 String contactEmail = result.getString("ContactEmail");
                 Date publicationDate = result.getDate("PublicationDate");
 
+                // System.out.println(serialNumber + " " + title + " " + progress);
+
                 this.modules.add(new Module(progress, publicationDate, contactEmail, title, description, version,
                         contactName, contactEmail, progress, serialNumber));
 
@@ -55,9 +58,16 @@ public class Course {
             e.printStackTrace();
         }
 
+        return this.modules;
+    }
+
+    public boolean checkCertificate() {
         for (ContentItem module : modules) {
-            System.out.println(module);
+            if (module.getProgress() < 100) {
+                return false;
+            }
         }
+        return true;
     }
 
     public String getName() {
@@ -84,7 +94,6 @@ public class Course {
                 ", subject='" + subject + "'" +
                 ", introduction='" + introduction + "'" +
                 ", level='" + level + "'" +
-                ", modules='" + modules + "'" +
                 "}";
     }
 

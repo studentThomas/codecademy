@@ -17,14 +17,25 @@ public class Module extends ContentItem {
         this.serialNumber = serialNumber;
     }
 
+    public int getSerialNumber() {
+        return this.serialNumber;
+    }
+
+    public int getVersion() {
+        return this.version;
+    }
+
+    public String getContactName() {
+        return this.contactName;
+    }
+
+    public String getContactEmail() {
+        return this.contactEmail;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-                " serialNumber='" + serialNumber + "'" +
-                ", version='" + version + "'" +
-                ", contactName='" + contactName + "'" +
-                ", contactEmail='" + contactEmail + "'" +
-                "}";
+        return serialNumber + " " + getTitle() + " " + getProgress() + "\n";
     }
 
 }

@@ -2,6 +2,7 @@ package dmt;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.security.cert.Certificate;
 import java.sql.*;
 
 public class Person {
@@ -14,6 +15,7 @@ public class Person {
     private String country;
     private ArrayList<Course> courses;
     private ArrayList<ContentItem> webcasts;
+    private ArrayList<Certificate> certificates;
 
     public Person(String email, String name, Date dateOfBirth, String gender, String address, String city,
             String country) {
@@ -26,6 +28,7 @@ public class Person {
         this.country = country;
         this.courses = new ArrayList<>();
         this.webcasts = new ArrayList<>();
+        this.certificates = new ArrayList<>();
     }
 
     public void getViewedWebcasts() {
@@ -34,6 +37,7 @@ public class Person {
             PreparedStatement query = connection.prepareStatement(
                     "SELECT * FROM Webcast JOIN WebcastViewed ON Webcast.Id = WebcastViewed.Id WHERE WebcastViewed.Email = ?");
             query.setString(1, this.email);
+
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
@@ -46,6 +50,8 @@ public class Person {
                 Date publicationDate = result.getDate("PublicationDate");
                 String url = result.getString("Url");
                 int progress = result.getInt("Progress");
+
+                // haal arralist op database.getviewewebcast
 
                 this.webcasts.add(new Webcast(id, publicationDate, url, title, description, speakerName, organization,
                         progress, watchTime));
@@ -89,6 +95,23 @@ public class Person {
             System.out.println(course);
         }
 
+    }
+
+    public void getModules() {
+        for (Course course : courses) {
+            System.out.println(course.getModules(this.email) + "\n");
+        }
+    }
+
+    public void getCertificate() {
+        for (Course course : courses) {
+            if (course.checkCertificate()) {
+                System.out.println("Krijgt Certificate");
+            } else {
+                System.out.println("Geen certicase");
+            }
+
+        }
     }
 
     public String toString() {
