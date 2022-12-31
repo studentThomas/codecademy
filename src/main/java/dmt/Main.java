@@ -20,7 +20,7 @@ public class Main {
         System.out.println("\n" + "Modules");
         person.getModules();
 
-        person.setCertificate();
+        person.insertCertificate();
         person.getCertificate();
         person.getProgress();
 
