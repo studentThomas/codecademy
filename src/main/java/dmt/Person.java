@@ -134,7 +134,7 @@ public class Person {
                     e.printStackTrace();
                 }
             } else {
-                System.out.println("Geen certicase");
+                System.out.println("Geen certicate");
 
             }
 
@@ -156,6 +156,7 @@ public class Person {
                 Date registrationDate = result.getDate("RegistrationDate");
 
                 this.certificates.add(new Certificate(id, personEmai, courseId, registrationDate));
+                updateCertificate(id, personEmai, courseId, registrationDate);
 
             }
         } catch (SQLException e) {
@@ -167,8 +168,22 @@ public class Person {
         }
     }
 
-    public void updateCertificate() {
+    public void updateCertificate(int certificateId, String email, String id, Date registrationDate) {
+        System.out.println("Update");
+        System.out.println(certificateId + " " + email + " " + id + " " + registrationDate);
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "UPDATE CourseEnrolled SET CertificateId = ? WHERE Email = ? AND Id = ? AND RegistrationDate = ?");
+            query.setInt(1, certificateId);
+            query.setString(2, email);
+            query.setString(3, id);
+            query.setDate(4, registrationDate);
+            query.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String toString() {
