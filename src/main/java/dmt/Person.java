@@ -103,12 +103,19 @@ public class Person {
         }
     }
 
+    public void getProgress() {
+        for (Course course : courses) {
+            System.out.println(course.checkProgress());
+        }
+    }
+
     public void getCertificate() {
         for (Course course : courses) {
             if (course.checkCertificate()) {
                 System.out.println("Krijgt Certificate");
             } else {
                 System.out.println("Geen certicase");
+
             }
 
         }

@@ -31,9 +31,9 @@ public class Course {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
-                    "SELECT * FROM Module JOIN ModuleViewed ON Module.Id = ? WHERE Email = ? ");
-            query.setInt(1, this.id);
-            query.setString(2, email);
+                    "SELECT * FROM Module JOIN ModuleViewed ON [Module].Id = ModuleViewed.Id WHERE ModuleViewed.Email = ? AND Module.SerialNumber = ?");
+            query.setString(1, email);
+            query.setInt(2, this.id);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
@@ -68,6 +68,14 @@ public class Course {
             }
         }
         return true;
+    }
+
+    public double checkProgress() {
+        double average = modules.stream()
+                .mapToInt(module -> module.getProgress())
+                .average()
+                .getAsDouble();
+        return average;
     }
 
     public String getName() {
