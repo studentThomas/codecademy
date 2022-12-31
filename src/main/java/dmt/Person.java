@@ -2,7 +2,11 @@ package dmt;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.security.cert.Certificate;
+
+import dmt.Data.DatabaseConnectionManager;
+// import dmt.Data.DatabaseHandler;
+// import dmt.Data.DatabaseConnectionManager;
+
 import java.sql.*;
 
 public class Person {
@@ -16,6 +20,7 @@ public class Person {
     private ArrayList<Course> courses;
     private ArrayList<ContentItem> webcasts;
     private ArrayList<Certificate> certificates;
+    private DatabaseHandler databaseHandler;
 
     public Person(String email, String name, Date dateOfBirth, String gender, String address, String city,
             String country) {
@@ -29,9 +34,11 @@ public class Person {
         this.courses = new ArrayList<>();
         this.webcasts = new ArrayList<>();
         this.certificates = new ArrayList<>();
+        this.databaseHandler = new DatabaseHandler();
     }
 
     public void getViewedWebcasts() {
+        // ArrayList<ContentItem> wItems = databaseHandler.getViewedWebcasts2();
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
@@ -83,8 +90,9 @@ public class Person {
                 String subject = result.getString("Subject");
                 String introduction = result.getString("Introduction");
                 String level = result.getString("Level");
+                Date registrationDate = result.getDate("RegistrationDate");
 
-                this.courses.add(new Course(id, name, subject, introduction, level));
+                this.courses.add(new Course(id, name, subject, introduction, level, registrationDate));
 
             }
         } catch (SQLException e) {
@@ -109,16 +117,58 @@ public class Person {
         }
     }
 
-    public void getCertificate() {
+    public void setCertificate() {
         for (Course course : courses) {
             if (course.checkCertificate()) {
                 System.out.println("Krijgt Certificate");
+                try {
+                    Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+                    PreparedStatement query = connection.prepareStatement(
+                            "INSERT INTO Certificate (PersonEmail, CourseId, RegistrationDate) VALUES (?, ?, ?)");
+                    query.setString(1, this.email);
+                    query.setInt(2, course.getId());
+                    query.setDate(3, course.getRegistrationDate());
+                    query.executeUpdate();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             } else {
                 System.out.println("Geen certicase");
 
             }
 
         }
+    }
+
+    public void getCertificate() {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Certificate WHERE PersonEmail = ?");
+            query.setString(1, this.email);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("Id");
+                String personEmai = result.getString("PersonEmail");
+                String courseId = result.getString("CourseId");
+                Date registrationDate = result.getDate("RegistrationDate");
+
+                this.certificates.add(new Certificate(id, personEmai, courseId, registrationDate));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        for (Certificate certificate : certificates) {
+            System.out.println(certificate);
+        }
+    }
+
+    public void updateCertificate() {
+
     }
 
     public String toString() {

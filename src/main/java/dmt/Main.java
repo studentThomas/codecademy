@@ -12,14 +12,15 @@ public class Main {
 
         Person person = new Person("Barry@gmail.com", null, null, null, null, null,
                 null);
-        // System.out.println("\n" + "Webcasts");
-        // person.getViewedWebcasts();
+        System.out.println("\n" + "Webcasts");
+        person.getViewedWebcasts();
         System.out.println("\n" + "Courses");
         person.getEnrolledCourses();
 
         System.out.println("\n" + "Modules");
         person.getModules();
 
+        person.setCertificate();
         person.getCertificate();
         person.getProgress();
 

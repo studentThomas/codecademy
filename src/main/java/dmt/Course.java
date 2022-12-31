@@ -4,20 +4,24 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import dmt.Data.DatabaseConnectionManager;
+
 public class Course {
     private int id;
     private String name;
     private String subject;
     private String introduction;
     private String level;
+    private Date registrationDate;
     private ArrayList<ContentItem> modules;
 
-    public Course(int id, String name, String subject, String introduction, String level) {
+    public Course(int id, String name, String subject, String introduction, String level, Date registrationDate) {
         this.id = id;
         this.name = name;
         this.subject = subject;
         this.introduction = introduction;
         this.level = level;
+        this.registrationDate = registrationDate;
         this.modules = new ArrayList<>();
     }
 
@@ -78,6 +82,10 @@ public class Course {
         return average;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -94,6 +102,10 @@ public class Course {
         return this.level;
     }
 
+    public Date getRegistrationDate() {
+        return this.registrationDate;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -102,6 +114,7 @@ public class Course {
                 ", subject='" + subject + "'" +
                 ", introduction='" + introduction + "'" +
                 ", level='" + level + "'" +
+                ", registrationDate='" + registrationDate + "'" +
                 "}";
     }
 

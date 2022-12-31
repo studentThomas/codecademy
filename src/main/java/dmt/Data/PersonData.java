@@ -3,7 +3,6 @@ package dmt.Data;
 import java.sql.*;
 import java.util.ArrayList;
 
-import dmt.DatabaseConnectionManager;
 import dmt.Person;
 
 public class PersonData {

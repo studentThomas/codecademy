@@ -29,6 +29,7 @@ public class Webcast extends ContentItem {
                 " speakerName='" + speakerName + "'" +
                 ", organization='" + organization + "'" +
                 ", watchTime='" + watchTime + "'" +
+                ", progress='" + getProgress() + "'" +
                 "}";
     }
 
