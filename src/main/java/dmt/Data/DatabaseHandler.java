@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import dmt.ContentItem;
 import dmt.Course;
+import dmt.Module;
 import dmt.Webcast;
 import dmt.Certificate;
+import dmt.Data.DatabaseHandler;
 
 import java.sql.*;
 
@@ -14,6 +16,7 @@ public class DatabaseHandler {
     private String email;
     private ArrayList<Course> courses;
     private ArrayList<ContentItem> webcasts;
+    private ArrayList<ContentItem> modules;
     private ArrayList<Certificate> certificates;
 
     public DatabaseHandler(String email) {
@@ -21,6 +24,8 @@ public class DatabaseHandler {
         this.courses = new ArrayList<>();
         this.webcasts = new ArrayList<>();
         this.certificates = new ArrayList<>();
+        this.modules = new ArrayList<>();
+
     }
 
     public ArrayList<ContentItem> retrieveViewedWebcasts() {
@@ -175,4 +180,39 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<ContentItem> getModules(int id) {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Module JOIN ModuleViewed ON [Module].Id = ModuleViewed.Id WHERE ModuleViewed.Email = ? AND Module.SerialNumber = ?");
+            query.setString(1, this.email);
+            query.setInt(2, id);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int serialNumber = result.getInt("SerialNumber");
+                String title = result.getString("Title");
+                int version = result.getInt("Version");
+                int progress = result.getInt("Progress");
+                String description = result.getString("Description");
+                String contactName = result.getString("ContactName");
+                String contactEmail = result.getString("ContactEmail");
+                Date publicationDate = result.getDate("PublicationDate");
+
+                // System.out.println(serialNumber + " " + title + " " + progress);
+
+                this.modules.add(new Module(progress, publicationDate, contactEmail, title, description, version,
+                        contactName, contactEmail, progress, serialNumber));
+
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+
+        return this.modules;
+    }
+
 }

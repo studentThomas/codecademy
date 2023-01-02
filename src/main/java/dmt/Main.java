@@ -10,7 +10,7 @@ public class Main {
         // getPersons();
         // addPerson();
 
-        Person person = new Person("EchteMark@gmail.com", null, null, null, null, null,
+        Person person = new Person("Barry@gmail.com", "Thomas", null, null, null, null,
                 null);
         System.out.println("\n" + "Webcasts");
         person.getViewedWebcasts();
@@ -21,7 +21,6 @@ public class Main {
         person.getModules();
 
         person.insertCertificate();
-        person.getCertificate();
         person.getProgress();
 
         // System.out.println("Modules");

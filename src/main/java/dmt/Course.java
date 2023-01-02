@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import dmt.Data.DatabaseConnectionManager;
+import dmt.Data.DatabaseHandler;
 
 public class Course {
     private int id;
@@ -14,6 +15,7 @@ public class Course {
     private String level;
     private Date registrationDate;
     private ArrayList<ContentItem> modules;
+    private DatabaseHandler databaseHandler;
 
     public Course(int id, String name, String subject, String introduction, String level, Date registrationDate) {
         this.id = id;
@@ -25,43 +27,9 @@ public class Course {
         this.modules = new ArrayList<>();
     }
 
-    // TODO: Add certicaat
-
-    // TODO: get data from database en print that
-
-    // TODO: print all modules in course they have the same ID course -> serial
-    // number module
     public ArrayList<ContentItem> getModules(String email) {
-        try {
-            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement query = connection.prepareStatement(
-                    "SELECT * FROM Module JOIN ModuleViewed ON [Module].Id = ModuleViewed.Id WHERE ModuleViewed.Email = ? AND Module.SerialNumber = ?");
-            query.setString(1, email);
-            query.setInt(2, this.id);
-            ResultSet result = query.executeQuery();
-
-            while (result.next()) {
-                int serialNumber = result.getInt("SerialNumber");
-                String title = result.getString("Title");
-                int version = result.getInt("Version");
-                int progress = result.getInt("Progress");
-                String description = result.getString("Description");
-                String contactName = result.getString("ContactName");
-                String contactEmail = result.getString("ContactEmail");
-                Date publicationDate = result.getDate("PublicationDate");
-
-                // System.out.println(serialNumber + " " + title + " " + progress);
-
-                this.modules.add(new Module(progress, publicationDate, contactEmail, title, description, version,
-                        contactName, contactEmail, progress, serialNumber));
-
-            }
-        } catch (
-
-        SQLException e) {
-            e.printStackTrace();
-        }
-
+        this.databaseHandler = new DatabaseHandler(email);
+        this.modules = databaseHandler.getModules(this.id);
         return this.modules;
     }
 
