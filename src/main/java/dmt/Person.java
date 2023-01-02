@@ -58,7 +58,7 @@ public class Person {
 
     public void getProgress() {
         for (Course course : courses) {
-            System.out.println(course.checkProgress());
+            System.out.println("Progress cursus: " + course.checkProgress());
         }
     }
 

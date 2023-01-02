@@ -85,30 +85,6 @@ public class DatabaseHandler {
 
     }
 
-    public void insertCertificate() {
-        for (Course course : courses) {
-            if (course.checkCertificate()) {
-                System.out.println("Krijgt Certificate");
-                try {
-                    Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-                    PreparedStatement query = connection.prepareStatement(
-                            "INSERT INTO Certificate (PersonEmail, CourseId, RegistrationDate) VALUES (?, ?, ?)");
-                    query.setString(1, this.email);
-                    query.setInt(2, course.getId());
-                    query.setDate(3, course.getRegistrationDate());
-                    query.executeUpdate();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println("Geen certicate");
-
-            }
-
-        }
-    }
-
     public ArrayList<Certificate> retrieveCertificate() {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
@@ -133,6 +109,53 @@ public class DatabaseHandler {
 
         return this.certificates;
 
+    }
+
+    public boolean checkCertificateNotExists(String personEmail, Integer courseId, Date registrationDate) {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Certificate WHERE PersonEmail = ? AND CourseId = ? AND RegistrationDate = ?");
+            query.setString(1, personEmail);
+            query.setInt(2, courseId);
+            query.setDate(3, registrationDate);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                return false;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public void insertCertificate() {
+        for (Course course : courses) {
+            if (course.checkCertificate()
+                    && checkCertificateNotExists(this.email, course.getId(), course.getRegistrationDate())) {
+                System.out.println("Krijgt Certificate voor: " + course.getId());
+                try {
+                    Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+                    PreparedStatement query = connection.prepareStatement(
+                            "INSERT INTO Certificate (PersonEmail, CourseId, RegistrationDate) VALUES (?, ?, ?)");
+                    query.setString(1, this.email);
+                    query.setInt(2, course.getId());
+                    query.setDate(3, course.getRegistrationDate());
+                    query.executeUpdate();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Onvoldoende progress of certifcate bestaat al");
+
+            }
+
+        }
+        retrieveCertificate();
     }
 
     public void updateCertificate(int certificateId, String email, String id, Date registrationDate) {
