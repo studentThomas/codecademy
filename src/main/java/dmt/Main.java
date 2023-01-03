@@ -1,5 +1,6 @@
 package dmt;
 
+import dmt.Data.DatabaseHandler;
 import javafx.application.Application;
 
 public class Main {
@@ -23,6 +24,9 @@ public class Main {
         person.insertCertificate();
         person.getProgress();
 
+        DatabaseHandler databaseHandler = new DatabaseHandler(null);
+
+        System.out.println(databaseHandler.getCertificateStatistics("M"));
         // System.out.println("Modules");
         // Course course = new Course(1, null, null, null, null);
         // course.getModules();

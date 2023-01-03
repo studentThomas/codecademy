@@ -215,4 +215,43 @@ public class DatabaseHandler {
         return this.modules;
     }
 
+    public double getCertificateStatistics(String gender) {
+        int total = 0;
+        int achieved = 0;
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT COUNT(*) FROM CourseEnrolled JOIN Person ON CourseEnrolled.Email = Person.Email WHERE CourseEnrolled.CertificateId IS NOT NULL AND Person.Gender = ?");
+            query.setString(1, gender);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                achieved = result.getInt(1);
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT COUNT(*) FROM CourseEnrolled JOIN Person ON CourseEnrolled.Email = Person.Email WHERE Person.Gender = ?");
+            query.setString(1, gender);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                total = result.getInt(1);
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+
+        return (double) achieved / total * 100;
+
+    }
+
 }
