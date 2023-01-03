@@ -215,7 +215,7 @@ public class DatabaseHandler {
         return this.modules;
     }
 
-    public double getCertificateStatistics(String gender) {
+    public double retrieveCertificateStatistics(String gender) {
         int total = 0;
         int achieved = 0;
         try {
@@ -252,6 +252,30 @@ public class DatabaseHandler {
 
         return (double) achieved / total * 100;
 
+    }
+
+    public String retrieveTopViewedWebcasts() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Most watched webcasts: ");
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT TOP 3 WebcastViewed.Id, Webcast.Title, COUNT(WebcastViewed.Id) as count FROM WebcastViewed JOIN Webcast ON Webcast.Id = WebcastViewed.Id GROUP BY WebcastViewed.Id, Webcast.Title ORDER BY count DESC");
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                String title = result.getString("Title");
+                stringBuilder.append(title);
+                stringBuilder.append(", ");
+
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 2);
+        return stringBuilder.toString();
     }
 
 }
