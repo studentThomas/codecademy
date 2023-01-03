@@ -26,8 +26,9 @@ public class Main {
 
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
 
-        System.out.println(databaseHandler.retrieveCertificateStatistics("M"));
-        System.out.println(databaseHandler.retrieveTopViewedWebcasts());
+        // System.out.println(databaseHandler.retrieveCertificateStatistics("M"));
+        // System.out.println(databaseHandler.retrieveTopViewedWebcasts());
+        System.out.println(databaseHandler.retrieveAmoutOfCertificatesPerCourse(3));
         // System.out.println("Modules");
         // Course course = new Course(1, null, null, null, null);
         // course.getModules();

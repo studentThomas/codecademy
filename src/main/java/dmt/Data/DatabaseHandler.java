@@ -278,4 +278,25 @@ public class DatabaseHandler {
         return stringBuilder.toString();
     }
 
+    public int retrieveAmoutOfCertificatesPerCourse(int id) {
+        int amount = 0;
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT COUNT(Id) FROM CourseEnrolled WHERE CertificateId IS NOT NULL AND Id = ? GROUP BY Id");
+            query.setInt(1, id);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                amount = result.getInt(1);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return amount;
+
+    }
+
 }
