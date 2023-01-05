@@ -16,8 +16,8 @@ public class HomeUI extends Application {
 
     public void start(Stage Stage) {
         Button PersonButton = new Button("Person");
-        TextField rightText = new TextField();
         Button CourseButton = new Button("Course");
+        Button AddButton = new Button("Add");
 
         // this is how it will connect i think
         // PersonButton.setOnAction((event) -> {
@@ -28,7 +28,7 @@ public class HomeUI extends Application {
         // });
         HBox componentGroup = new HBox();
         componentGroup.setSpacing(20);
-        componentGroup.getChildren().addAll(PersonButton, CourseButton);
+        componentGroup.getChildren().addAll(PersonButton, CourseButton, AddButton);
 
         Scene scene = new Scene(componentGroup);
 

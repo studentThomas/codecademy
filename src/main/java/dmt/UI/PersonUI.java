@@ -1,78 +1,41 @@
 package dmt.UI;
 
+import java.util.ArrayList;
+
+import dmt.Person;
+import dmt.Data.PersonData;
 import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.DatePicker;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.control.ScrollPane;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+public class PersonUI extends Application {
 
-public class PersonUI extends Application{
+    public void start(Stage stage) {
+        ArrayList<Person> persons = PersonData.getPersons();
+        ScrollPane scrollPane = new ScrollPane();
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+        VBox vBox = new VBox();
+        for (Person person : persons) {
+            Button button = new Button();
+            button.setText(person.getName());
+            vBox.getChildren().add(button);
 
-    public void start(Stage stage){
-        Label labelEmail = new Label("Enter your email:");
-        TextField inputEmail = new TextField();
+            button.setOnAction((event) -> {
+                Stage personWindow = new Stage();
+                personWindow.setTitle(person.getName());
+                personWindow.show();
+                stage.close();
+            });
 
-        Label labelName = new Label("Enter your name:");
-        TextField inputName = new TextField();
+        }
+        scrollPane.setContent(vBox);
 
-        Label labelDate = new Label("Select a date:");
-        DatePicker datePicker = new DatePicker();
-
-        Label labelGender = new Label("Enter your gender:");
-        TextField inputGender = new TextField();
-
-        Label labelCity = new Label("Enter your city:");
-        TextField inputCity = new TextField();
-
-        Label labelCountry = new Label("Enter your country:");
-        TextField inputCountry = new TextField();
-
-        Button confirmButton = new Button("Confirm");
-
-        Label errorLabel = new Label("Not enough information filled in!");
-
-        confirmButton.setOnAction(event -> {
-
-            String email = inputEmail.getText();
-            String name = inputName.getText();
-            Date date = localDateToDate(datePicker.getValue());
-            String gender = inputGender.getText();
-            String city = inputCity.getText();
-            String country = inputCountry.getText();
-
-            if(email.isEmpty() || name.isEmpty() || (date == null) || gender.isEmpty() || city.isEmpty() || country.isEmpty()){
-
-                errorLabel.setVisible(true);
-            }else{
-
-                errorLabel.setVisible(false);
-
-//Hier moet code komen die van de data een nieuw record maakt
-
-            }
-        });
-
-        VBox root = new VBox(labelEmail, inputEmail, labelName, inputName, labelDate, datePicker, labelGender, inputGender, labelCity, inputCity, labelCountry, inputCountry, confirmButton);
-        Scene scene = new Scene(root, 300, 250);
-
-        stage.setTitle("Create new user");
+        Scene scene = new Scene(scrollPane, 300, 250);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public Date localDateToDate(LocalDate localDate){
-        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        return date;
     }
 }
