@@ -1,6 +1,7 @@
 package dmt;
 
 import dmt.Data.DatabaseHandler;
+import dmt.UI.HomeUI;
 import javafx.application.Application;
 
 public class Main {
@@ -33,7 +34,7 @@ public class Main {
         // Course course = new Course(1, null, null, null, null);
         // course.getModules();
 
-        // Application.launch(HomeUI.class, args);
+        Application.launch(HomeUI.class, args);
         // Application.launch(PersonUI.class, args);
 
     }
