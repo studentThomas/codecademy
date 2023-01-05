@@ -19,19 +19,12 @@ public class HomeUI extends Application {
         Button CourseButton = new Button("Course");
         Button AddButton = new Button("Add");
 
-        // this is how it will connect i think
-        // PersonButton.setOnAction((event) -> {
-        // window.setScene(PersonUI);
-        // });
-        // CourseButton.setOnAction((event) -> {
-        // window.setScene(CourseUI);
-        // });
+        //leg een connectie met views
         HBox componentGroup = new HBox();
         componentGroup.setSpacing(20);
         componentGroup.getChildren().addAll(PersonButton, CourseButton, AddButton);
 
-        Scene scene = new Scene(componentGroup);
-
+        Scene scene = new Scene(componentGroup, 300, 250);
         Stage.setScene(scene);
         Stage.show();
     }

@@ -24,6 +24,7 @@ public class PersonUI extends Application {
             button.setText(person.getName());
             vBox.getChildren().add(button);
 
+            //verdander buttonaction window --> scene
             button.setOnAction((event) -> {
                 Stage personWindow = new Stage();
                 personWindow.setTitle(person.getName());
