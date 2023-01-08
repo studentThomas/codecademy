@@ -29,9 +29,10 @@ public class HomeUI extends Application {
         menu.setSpacing(10);
 
         // 3.2. Create the menu buttons
-        Button enterButton = new Button("Enter new words");
-        Button practiceButton = new Button("Practice");
-
+        Button enterButton = new Button("Persons");
+        Button practiceButton = new Button("Courses");
+        // Button addButton = new Button("Add more");
+        
         // 3.3. Add the buttons to the menu
         menu.getChildren().addAll(enterButton, practiceButton);
         layout.setTop(menu);

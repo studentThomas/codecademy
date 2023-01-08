@@ -2,8 +2,10 @@ package dmt.UI;
 
 import java.util.ArrayList;
 
-import dmt.Person;
 import dmt.Data.PersonData;
+import dmt.Course;
+import dmt.Person;
+import dmt.Data.DatabaseHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -16,25 +18,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PersonUI {
-
+public class CourseView {
     public Parent getView() {
-        ArrayList<Person> persons = PersonData.getPersons();
+        DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        ArrayList<Course> courses = databaseHandler.retrieveCourses();
         ScrollPane scrollPane = new ScrollPane();
 
         BorderPane layout = new BorderPane();
+        layout.setCenter(scrollPane);
+    
 
-        VBox vBox = new VBox();
-        for (Person person : persons) {
-            Button button = new Button();
-            button.setText(person.getName());
-            vBox.getChildren().add(button);
+        Label label = new Label("Yeet");
+           
+        layout.getChildren().addAll(label);
 
-            // verdander buttonaction window --> scene
-
-
-        }
-        scrollPane.setContent(vBox);
-        return scrollPane;
+        
+        return layout;
     }
 }

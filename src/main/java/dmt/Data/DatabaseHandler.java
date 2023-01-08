@@ -90,6 +90,32 @@ public class DatabaseHandler {
 
     }
 
+    public ArrayList<Course> retrieveCourses() {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Course");
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("Id");
+                String name = result.getString("Name");
+                String subject = result.getString("Subject");
+                String introduction = result.getString("Introduction");
+                String level = result.getString("Level");
+
+                this.courses.add(new Course(id, name, subject, introduction, level, null));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return courses;
+    }
+
+    
+
     public ArrayList<Certificate> retrieveCertificate() {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();

@@ -1,34 +1,45 @@
 package dmt.UI;
 
+import java.util.ArrayList;
+
+import dmt.Data.PersonData;
+import dmt.Course;
+import dmt.Person;
+import dmt.Data.DatabaseHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class CourseUI {
     public Parent getView() {
-        GridPane layout = new GridPane();
+        CourseView courseView = new CourseView();
+        PersonView personView = new PersonView();
+        DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        ArrayList<Course> courses = databaseHandler.retrieveCourses();
+        ScrollPane scrollPane = new ScrollPane();
 
-        Label wordInstruction = new Label("Translate the word '" + "Hallo" + "'");
-        TextField translationField = new TextField();
+        BorderPane layout = new BorderPane();
+        layout.setCenter(scrollPane);
 
-        layout.setAlignment(Pos.CENTER);
-        layout.setVgap(10);
-        layout.setHgap(10);
-        layout.setPadding(new Insets(10, 10, 10, 10));
+        VBox vBox = new VBox();
+        for (Course course : courses) {
+            Button button = new Button();
+            button.setText(course.getName());
+            vBox.getChildren().add(button);
+            
+            button.setOnAction((event) -> layout.setCenter(courseView.getView()));
 
-        Button addButton = new Button("Check");
 
-        Label feedback = new Label("");
-
-        layout.add(wordInstruction, 0, 0);
-        layout.add(translationField, 0, 1);
-        layout.add(addButton, 0, 2);
-        layout.add(feedback, 0, 3);
-
+        }
+        scrollPane.setContent(vBox);
         return layout;
     }
 }
