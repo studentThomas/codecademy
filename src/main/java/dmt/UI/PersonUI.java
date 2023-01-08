@@ -29,12 +29,15 @@ public class PersonUI {
             Button button = new Button();
             button.setText(person.getName());
             vBox.getChildren().add(button);
-
+            ;
             // verdander buttonaction window --> scene
 
 
         }
+        vBox.setSpacing(7);
+        
         scrollPane.setContent(vBox);
+        vBox.setPadding(new Insets(10, 20, 20, 7));
         return scrollPane;
     }
 }

@@ -21,10 +21,10 @@ import javafx.stage.Stage;
 public class CourseUI {
     public Parent getView() {
         CourseView courseView = new CourseView();
-        PersonView personView = new PersonView();
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
         ArrayList<Course> courses = databaseHandler.retrieveCourses();
         ScrollPane scrollPane = new ScrollPane();
+   
 
         BorderPane layout = new BorderPane();
         layout.setCenter(scrollPane);
@@ -34,12 +34,20 @@ public class CourseUI {
             Button button = new Button();
             button.setText(course.getName());
             vBox.getChildren().add(button);
+
+            button.setOnAction((event) -> {
+                layout.setCenter(courseView.getView());
+                
+                
+            });
+
             
-            button.setOnAction((event) -> layout.setCenter(courseView.getView()));
-
-
         }
+
+        
         scrollPane.setContent(vBox);
+        vBox.setSpacing(7);
+        vBox.setPadding(new Insets(10, 20, 20, 7));
         return layout;
     }
 }
