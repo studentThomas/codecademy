@@ -1,42 +1,59 @@
 package dmt.UI;
 
 import javafx.application.Application;
-import javafx.scene.Parent;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+import dmt.Course;
+import dmt.Person;
+
 public class HomeUI extends Application {
 
-    public void start(Stage Stage) {
-        Button PersonButton = new Button("Person");
-        Button CourseButton = new Button("Course");
-        Button AddButton = new Button("Add");
-
-        //create subviews
+    public void start(Stage stage) throws Exception {
+        // 2. Create the views ("subviews")
         PersonUI personUI = new PersonUI();
         CourseUI courseUI = new CourseUI();
 
-        //create main layout
+        // 3. Create the higher level layout
         BorderPane layout = new BorderPane();
 
-        //create Layout
-        HBox componentGroup = new HBox();
-        componentGroup.setSpacing(20);
-        componentGroup.getChildren().addAll(PersonButton, CourseButton, AddButton);
+        // 3.1. Create the menu for the general layout
+        HBox menu = new HBox();
+        menu.setPadding(new Insets(20, 20, 20, 20));
+        menu.setSpacing(10);
 
-        layout.setTop(componentGroup);
+        // 3.2. Create the menu buttons
+        Button enterButton = new Button("Enter new words");
+        Button practiceButton = new Button("Practice");
 
+        // 3.3. Add the buttons to the menu
+        menu.getChildren().addAll(enterButton, practiceButton);
+        layout.setTop(menu);
 
-        Scene scene = new Scene(componentGroup, 300, 250);
-        Stage.setScene(scene);
-        Stage.show();
+        // 4. Connect the subviews with the buttons. Clicking menu buttons changes the
+        // subview.
+        enterButton.setOnAction((event) -> layout.setCenter(personUI.getView()));
+        practiceButton.setOnAction((event) -> layout.setCenter(courseUI.getView()));
+
+        // 5. First show the input view
+        layout.setCenter(personUI.getView());
+
+        // 6. Create the main view and add the high level layout
+        Scene view = new Scene(layout, 400, 300);
+
+        // 7. Show the application
+        stage.setScene(view);
+        stage.show();
     }
+
+    public static void main(String[] args) {
+        launch(HomeUI.class);
+    }
+
 }

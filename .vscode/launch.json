@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch HomeUI",
+            "request": "launch",
+            "mainClass": "dmt.UI.HomeUI",
+            "projectName": "codecademy"
+        },
+        {
+            "type": "java",
             "name": "Launch PersonUI",
             "request": "launch",
             "mainClass": "dmt.PersonUI",

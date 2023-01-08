@@ -1,42 +1,36 @@
 package dmt.UI;
 
 import java.util.ArrayList;
-
-import dmt.Person;
-import dmt.Data.PersonData;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
-public class PersonUI extends Application {
+public class PersonUI {
+    public Parent getView() {
+        GridPane layout = new GridPane();
 
-    public void start(Stage stage) {
-        ArrayList<Person> persons = PersonData.getPersons();
-        ScrollPane scrollPane = new ScrollPane();
+        Label wordInstruction = new Label("Word");
+        TextField wordField = new TextField();
+        Label translationInstruction = new Label("Translation");
+        TextField translationField = new TextField();
 
-        VBox vBox = new VBox();
-        for (Person person : persons) {
-            Button button = new Button();
-            button.setText(person.getName());
-            vBox.getChildren().add(button);
+        layout.setAlignment(Pos.CENTER);
+        layout.setVgap(10);
+        layout.setHgap(10);
+        layout.setPadding(new Insets(10, 10, 10, 10));
 
-            //verdander buttonaction window --> scene
-            button.setOnAction((event) -> {
-                Stage personWindow = new Stage();
-                personWindow.setTitle(person.getName());
-                personWindow.show();
-                stage.close();
-            });
+        Button addButton = new Button("Add the word pair");
 
-        }
-        scrollPane.setContent(vBox);
+        layout.add(wordInstruction, 0, 0);
+        layout.add(wordField, 0, 1);
+        layout.add(translationInstruction, 0, 2);
+        layout.add(translationField, 0, 3);
+        layout.add(addButton, 0, 4);
 
-        Scene scene = new Scene(scrollPane, 300, 250);
-        stage.setScene(scene);
-        stage.show();
+        return layout;
     }
 }
