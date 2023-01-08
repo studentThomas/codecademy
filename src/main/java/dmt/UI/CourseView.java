@@ -21,17 +21,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CourseView {
-    public Parent getView() {
+    public Parent getView(Course course) {
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
         ArrayList<Course> courses = databaseHandler.retrieveCourses();
         ScrollPane scrollPane = new ScrollPane();
 
-       
-        Label labelId = new Label("id: " ); //(course.getName())); ik weet nog niet hoe dit werkt
-        Label labelName = new Label("name:");
-        Label labelSubject = new Label("subject:");
-        Label labelIntroduction = new Label("introduction:");
-        Label labelLevel= new Label("level:");
+        Label labelId = new Label("id: " + course.getId()); // (course.getName())); ik weet nog niet hoe dit werkt
+        Label labelName = new Label("name: " + course.getName());
+        Label labelSubject = new Label("subject:" + course.getSubject());
+        Label labelIntroduction = new Label("introduction: " + course.getIntroduction());
+        Label labelLevel = new Label("level:" + course.getLevel());
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(10, 20, 20, 20));
         layout.getChildren().addAll(labelId, labelName, labelSubject, labelIntroduction, labelLevel);

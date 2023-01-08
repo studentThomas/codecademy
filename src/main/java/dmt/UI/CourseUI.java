@@ -24,7 +24,6 @@ public class CourseUI {
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
         ArrayList<Course> courses = databaseHandler.retrieveCourses();
         ScrollPane scrollPane = new ScrollPane();
-   
 
         BorderPane layout = new BorderPane();
         layout.setCenter(scrollPane);
@@ -36,15 +35,12 @@ public class CourseUI {
             vBox.getChildren().add(button);
 
             button.setOnAction((event) -> {
-                layout.setCenter(courseView.getView());
-                
-                
+                layout.setCenter(courseView.getView(course));
+
             });
 
-            
         }
 
-        
         scrollPane.setContent(vBox);
         vBox.setSpacing(7);
         vBox.setPadding(new Insets(10, 20, 20, 7));
