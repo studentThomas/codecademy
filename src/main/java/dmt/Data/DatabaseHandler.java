@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dmt.ContentItem;
 import dmt.Course;
 import dmt.Module;
+import dmt.Person;
 import dmt.Webcast;
 import dmt.Certificate;
 import dmt.Data.DatabaseHandler;
@@ -18,6 +19,7 @@ public class DatabaseHandler {
     private ArrayList<ContentItem> webcasts;
     private ArrayList<ContentItem> modules;
     private ArrayList<Certificate> certificates;
+    private ArrayList<Person> persons;
 
     public DatabaseHandler(String email) {
         this.email = email;
@@ -25,6 +27,7 @@ public class DatabaseHandler {
         this.webcasts = new ArrayList<>();
         this.certificates = new ArrayList<>();
         this.modules = new ArrayList<>();
+        this.persons = new ArrayList<>();
 
     }
 
@@ -114,7 +117,30 @@ public class DatabaseHandler {
         return courses;
     }
 
-    
+    public ArrayList<Person> retrievedPersons() {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Person");
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                String email = result.getString("Email");
+                String name = result.getString("Name");
+                Date dob = result.getDate("DoB");
+                String gender = result.getString("Gender");
+                String adress = result.getString("Level");
+                String country = result.getString("Country");
+                String city = result.getString("City");
+
+                this.persons.add(new Person(email, name, dob, gender, adress, country, city, null));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return persons;
+    }
 
     public ArrayList<Certificate> retrieveCertificate() {
         try {
@@ -323,6 +349,10 @@ public class DatabaseHandler {
 
         return amount;
 
+    }
+
+    public ArrayList<Person> retrievePersons() {
+        return null;
     }
 
 }

@@ -26,11 +26,11 @@ public class CourseView {
         ArrayList<Course> courses = databaseHandler.retrieveCourses();
         ScrollPane scrollPane = new ScrollPane();
 
-        Label labelId = new Label("id: " + course.getId()); // (course.getName())); ik weet nog niet hoe dit werkt
+        Label labelId = new Label("id: " + course.getId());
         Label labelName = new Label("name: " + course.getName());
-        Label labelSubject = new Label("subject:" + course.getSubject());
+        Label labelSubject = new Label("subject: " + course.getSubject());
         Label labelIntroduction = new Label("introduction: " + course.getIntroduction());
-        Label labelLevel = new Label("level:" + course.getLevel());
+        Label labelLevel = new Label("level: " + course.getLevel());
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(10, 20, 20, 20));
         layout.getChildren().addAll(labelId, labelName, labelSubject, labelIntroduction, labelLevel);

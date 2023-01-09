@@ -36,6 +36,10 @@ public class Person {
         this.databaseHandler = new DatabaseHandler(email);
     }
 
+    public Person(String email2, String name2, Date doB, String gender2, String adress, String country2, String city2,
+            Object object) {
+    }
+
     public void getViewedWebcasts() {
         this.webcasts = databaseHandler.retrieveViewedWebcasts();
         for (ContentItem webcast : webcasts) {
