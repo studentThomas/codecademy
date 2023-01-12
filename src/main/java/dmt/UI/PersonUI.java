@@ -70,8 +70,10 @@ public class PersonUI {
     public Parent getView() {
         ArrayList<Person> persons = PersonData.getPersons();
         ScrollPane scrollPane = new ScrollPane();
-        // PersonView personView = new PersonView();
+        PersonView personView = new PersonView();
+
         BorderPane layout = new BorderPane();
+        layout.setCenter(scrollPane);
 
         VBox vBox = new VBox();
         for (Person person : persons) {
@@ -81,7 +83,7 @@ public class PersonUI {
             vBox.getChildren().add(button);
 
             button.setOnAction((event) -> {
-                //layout.setCenter(PersonView.getView(person));
+                layout.setCenter(personView.getView(person));
 
             });
 
@@ -90,6 +92,6 @@ public class PersonUI {
         scrollPane.setContent(vBox);
         scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");
         vBox.setPadding(new Insets(10, 20, 20, 7));
-        return scrollPane;
+        return layout;
     }
 }

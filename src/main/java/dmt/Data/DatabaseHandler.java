@@ -117,31 +117,7 @@ public class DatabaseHandler {
         return courses;
     }
 
-    public ArrayList<Person> retrievedPersons() {
-        try {
-            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement query = connection.prepareStatement(
-                    "SELECT * FROM Person");
-            ResultSet result = query.executeQuery();
-
-            while (result.next()) {
-                String email = result.getString("Email");
-                String name = result.getString("Name");
-                Date dob = result.getDate("DoB");
-                String gender = result.getString("Gender");
-                String adress = result.getString("Level");
-                String country = result.getString("Country");
-                String city = result.getString("City");
-
-                this.persons.add(new Person(email, name, dob, gender, adress, country, city, null));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return persons;
-    }
-
+    
     public ArrayList<Certificate> retrieveCertificate() {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
@@ -350,9 +326,4 @@ public class DatabaseHandler {
         return amount;
 
     }
-
-    public ArrayList<Person> retrievePersons() {
-        return null;
-    }
-
 }
