@@ -23,12 +23,12 @@ public class PersonView {
         ArrayList<Person> Person = PersonData.getPersons();
         ScrollPane scrollPane = new ScrollPane();
 
-        Label labelEmail = new Label("id: " + person.getEmail()); labelEmail.setStyle("-fx-text-fill: white;");
+        Label labelEmail = new Label("Email: " + person.getEmail()); labelEmail.setStyle("-fx-text-fill: white;");
         Label labelName = new Label("name: " + person.getName()); labelName.setStyle("-fx-text-fill: white;");
-        Label labelGender = new Label("subject: " + person.getGender()); labelGender.setStyle("-fx-text-fill: white;");
-        Label labelAdress = new Label("introduction: " + person.getAddress()); labelAdress.setStyle("-fx-text-fill: white;");
-        Label labelCity = new Label("level: " + person.getCity()); labelCity.setStyle("-fx-text-fill: white;");
-        Label labelCountry = new Label("level: " + person.getCountry()); labelCountry.setStyle("-fx-text-fill: white;");
+        Label labelGender = new Label("Gender: " + person.getGender()); labelGender.setStyle("-fx-text-fill: white;");
+        Label labelAdress = new Label("Adress: " + person.getAddress()); labelAdress.setStyle("-fx-text-fill: white;");
+        Label labelCity = new Label("City: " + person.getCity()); labelCity.setStyle("-fx-text-fill: white;");
+        Label labelCountry = new Label("Country: " + person.getCountry()); labelCountry.setStyle("-fx-text-fill: white;");
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(10, 20, 20, 20));
         layout.getChildren().addAll(labelEmail, labelName, labelGender, labelAdress, labelCity, labelCountry);
