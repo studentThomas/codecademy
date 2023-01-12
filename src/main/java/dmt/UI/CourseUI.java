@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class CourseUI {
@@ -32,6 +33,7 @@ public class CourseUI {
         for (Course course : courses) {
             Button button = new Button();
             button.setText(course.getName());
+            button.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
             vBox.getChildren().add(button);
 
             button.setOnAction((event) -> {
@@ -42,7 +44,8 @@ public class CourseUI {
         }
 
         scrollPane.setContent(vBox);
-        vBox.setSpacing(7);
+        scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");
+        vBox.setSpacing(10);
         vBox.setPadding(new Insets(10, 20, 20, 7));
         return layout;
     }

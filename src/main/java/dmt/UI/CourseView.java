@@ -26,14 +26,15 @@ public class CourseView {
         ArrayList<Course> courses = databaseHandler.retrieveCourses();
         ScrollPane scrollPane = new ScrollPane();
 
-        Label labelId = new Label("id: " + course.getId());
-        Label labelName = new Label("name: " + course.getName());
-        Label labelSubject = new Label("subject: " + course.getSubject());
-        Label labelIntroduction = new Label("introduction: " + course.getIntroduction());
-        Label labelLevel = new Label("level: " + course.getLevel());
-        VBox layout = new VBox(20);
+        Label labelId = new Label("id: " + course.getId()); labelId.setStyle("-fx-text-fill: white;");
+        Label labelName = new Label("name: " + course.getName()); labelName.setStyle("-fx-text-fill: white;");
+        Label labelSubject = new Label("subject: " + course.getSubject()); labelSubject.setStyle("-fx-text-fill: white;");
+        Label labelIntroduction = new Label("introduction: " + course.getIntroduction()); labelIntroduction.setStyle("-fx-text-fill: white;");
+        Label labelLevel = new Label("level: " + course.getLevel()); labelLevel.setStyle("-fx-text-fill: white;");
+        VBox layout = new VBox(20); 
         layout.setPadding(new Insets(10, 20, 20, 20));
         layout.getChildren().addAll(labelId, labelName, labelSubject, labelIntroduction, labelLevel);
+        layout.setStyle("-fx-background-color: #383838; -fx-border-color: red; ");
         return layout;
     }
 }

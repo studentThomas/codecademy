@@ -4,9 +4,13 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
@@ -19,7 +23,6 @@ public class HomeUI extends Application {
         // 2. Create the views ("subviews")
         PersonUI personUI = new PersonUI();
         CourseUI courseUI = new CourseUI();
-
         // 3. Create the higher level layout
         BorderPane layout = new BorderPane();
 
@@ -31,8 +34,16 @@ public class HomeUI extends Application {
         // 3.2. Create the menu buttons
         Button enterButton = new Button("Persons");
         Button practiceButton = new Button("Courses");
+        enterButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
+        practiceButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
+        DropShadow shadow = new DropShadow();
+        shadow.setOffsetX(5);
+        shadow.setOffsetY(5);
+        shadow.setColor(Color.BLUE);
+        enterButton.setEffect(shadow);
+        practiceButton.setEffect(shadow);
         // Button addButton = new Button("Add more");
-        
+
         // 3.3. Add the buttons to the menu
         menu.getChildren().addAll(enterButton, practiceButton);
         layout.setTop(menu);
@@ -47,8 +58,12 @@ public class HomeUI extends Application {
 
         // 6. Create the main view and add the high level layout
         Scene view = new Scene(layout, 400, 300);
-
+        layout.setStyle("-fx-background-color: red");
         // 7. Show the application
+
+        stage.setTitle("CodeCademy");
+        Image image = new Image("dmt/UI/codecademy.png");
+        stage.getIcons().add(image);
         stage.setScene(view);
         stage.show();
     }
