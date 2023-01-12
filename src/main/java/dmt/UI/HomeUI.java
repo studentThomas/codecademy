@@ -34,24 +34,29 @@ public class HomeUI extends Application {
         // 3.2. Create the menu buttons
         Button enterButton = new Button("Persons");
         Button practiceButton = new Button("Courses");
+        Button addButton = new Button("Add new data");
+
+        //add styling to the menu buttons
         enterButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         practiceButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
+        addButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         DropShadow shadow = new DropShadow();
         shadow.setOffsetX(5);
         shadow.setOffsetY(5);
         shadow.setColor(Color.BLUE);
         enterButton.setEffect(shadow);
         practiceButton.setEffect(shadow);
-        // Button addButton = new Button("Add more");
+        addButton.setEffect(shadow);
 
         // 3.3. Add the buttons to the menu
-        menu.getChildren().addAll(enterButton, practiceButton);
+        menu.getChildren().addAll(enterButton, practiceButton, addButton);
         layout.setTop(menu);
 
         // 4. Connect the subviews with the buttons. Clicking menu buttons changes the
         // subview.
         enterButton.setOnAction((event) -> layout.setCenter(personUI.getView()));
         practiceButton.setOnAction((event) -> layout.setCenter(courseUI.getView()));
+        addButton.setOnAction((event) -> layout.setCenter(AddUI.getView()));
 
         // 5. First show the input view
         layout.setCenter(personUI.getView());
