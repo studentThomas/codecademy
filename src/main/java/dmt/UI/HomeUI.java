@@ -36,7 +36,7 @@ public class HomeUI extends Application {
         Button practiceButton = new Button("Courses");
         Button addButton = new Button("Add new data");
 
-        //add styling to the menu buttons
+        // add styling to the menu buttons
         enterButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         practiceButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         addButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
@@ -62,7 +62,7 @@ public class HomeUI extends Application {
         layout.setCenter(personUI.getView());
 
         // 6. Create the main view and add the high level layout
-        Scene view = new Scene(layout, 400, 300);
+        Scene view = new Scene(layout, 800, 500);
         layout.setStyle("-fx-background-color: red");
         // 7. Show the application
 

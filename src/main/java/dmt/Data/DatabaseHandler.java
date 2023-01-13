@@ -117,7 +117,6 @@ public class DatabaseHandler {
         return courses;
     }
 
-    
     public ArrayList<Certificate> retrieveCertificate() {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
@@ -325,5 +324,29 @@ public class DatabaseHandler {
 
         return amount;
 
+    }
+
+    public String retrieveTopCertificates() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Most succeeded cursus: ");
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT TOP 3 CourseEnrolled.Id, Course.Name, COUNT(CourseEnrolled.Id) as count FROM CourseEnrolled JOIN Course ON Course.Id = CourseEnrolled.Id  WHERE CourseEnrolled.CertificateId IS NOT NULL GROUP BY CourseEnrolled.Id, Course.Name  ORDER BY count DESC");
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                String course = result.getString("Name");
+                stringBuilder.append(course);
+                stringBuilder.append(", ");
+
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 2);
+        return stringBuilder.toString();
     }
 }

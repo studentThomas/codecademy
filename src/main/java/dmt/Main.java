@@ -26,7 +26,8 @@ public class Main {
         // person.insertCertificate();
         // person.getProgress();
 
-        // DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        System.out.println(databaseHandler.retrieveTopCertificates());
 
         // System.out.println(databaseHandler.retrieveCertificateStatistics("M"));
         // System.out.println(databaseHandler.retrieveTopViewedWebcasts());
