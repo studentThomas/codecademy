@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import dmt.Data.DatabaseConnectionManager;
 import dmt.Data.DatabaseHandler;
+import javafx.scene.input.MouseButton;
 
 public class Course {
     private int id;
@@ -44,6 +45,20 @@ public class Course {
 
     public double checkProgress() {
         double average = modules.stream()
+                .mapToInt(module -> module.getProgress())
+                .average()
+                .getAsDouble();
+        return average;
+    }
+
+    public double checkProgressModule(int moduleId) {
+        this.databaseHandler = new DatabaseHandler(null);
+        ArrayList<ContentItem> modulesProgress = this.databaseHandler.retrieveProgressCourseModule(moduleId, this.id);
+        // for (ContentItem module : modulesProgress) {
+        // System.out.println(module.getProgress());
+        // }
+        // return 1.0;
+        double average = modulesProgress.stream()
                 .mapToInt(module -> module.getProgress())
                 .average()
                 .getAsDouble();

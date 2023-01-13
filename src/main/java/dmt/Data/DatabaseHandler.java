@@ -208,16 +208,18 @@ public class DatabaseHandler {
         }
     }
 
-    public ArrayList<ContentItem> getModules(int id) {
+    public ArrayList<ContentItem> getModules(int serial) {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
                     "SELECT * FROM Module JOIN ModuleViewed ON [Module].Id = ModuleViewed.Id WHERE ModuleViewed.Email = ? AND Module.SerialNumber = ?");
             query.setString(1, this.email);
-            query.setInt(2, id);
+            query.setInt(2, serial);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
+                int id = result.getInt("Id");
+                String status = result.getString("Status");
                 int serialNumber = result.getInt("SerialNumber");
                 String title = result.getString("Title");
                 int version = result.getInt("Version");
@@ -227,9 +229,7 @@ public class DatabaseHandler {
                 String contactEmail = result.getString("ContactEmail");
                 Date publicationDate = result.getDate("PublicationDate");
 
-                // System.out.println(serialNumber + " " + title + " " + progress);
-
-                this.modules.add(new Module(progress, publicationDate, contactEmail, title, description, version,
+                this.modules.add(new Module(id, publicationDate, status, title, description, version,
                         contactName, contactEmail, progress, serialNumber));
 
             }
@@ -349,4 +349,37 @@ public class DatabaseHandler {
         stringBuilder.deleteCharAt(stringBuilder.length() - 2);
         return stringBuilder.toString();
     }
+
+    public ArrayList<ContentItem> retrieveProgressCourseModule(int moduleId, int courseId) {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Module JOIN ModuleViewed ON ModuleViewed.Id = ? WHERE [Module].SerialNumber = ?");
+            query.setInt(1, moduleId);
+            query.setInt(2, courseId);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("Id");
+                String status = result.getString("Status");
+                int serialNumber = result.getInt("SerialNumber");
+                String title = result.getString("Title");
+                int version = result.getInt("Version");
+                int progress = result.getInt("Progress");
+                String description = result.getString("Description");
+                String contactName = result.getString("ContactName");
+                String contactEmail = result.getString("ContactEmail");
+                Date publicationDate = result.getDate("PublicationDate");
+
+                this.modules.add(new Module(id, publicationDate, status, title, description, version,
+                        contactName, contactEmail, progress, serialNumber));
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+        return this.modules;
+    }
+
 }

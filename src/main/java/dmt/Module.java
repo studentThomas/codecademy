@@ -35,7 +35,7 @@ public class Module extends ContentItem {
 
     @Override
     public String toString() {
-        return serialNumber + " " + getTitle() + " " + getProgress() + "\n";
+        return getId() + " " + serialNumber + " " + getTitle() + " " + getProgress() + " " + getStatus() + "\n";
     }
 
 }
