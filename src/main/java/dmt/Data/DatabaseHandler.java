@@ -385,13 +385,23 @@ public class DatabaseHandler {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
-                    "SELECT * FROM [Module] WHERE SerialNumber = ?");
+                    "SELECT * FROM [Module]  WHERE SerialNumber = ?");
             query.setInt(1, courseId);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
                 int id = result.getInt("Id");
-                this.modules.add(new ContentItem(id, null, null, null, email, id));
+                String status = result.getString("Status");
+                int serialNumber = result.getInt("SerialNumber");
+                String title = result.getString("Title");
+                int version = result.getInt("Version");
+                String description = result.getString("Description");
+                String contactName = result.getString("ContactName");
+                String contactEmail = result.getString("ContactEmail");
+                Date publicationDate = result.getDate("PublicationDate");
+
+                this.modules.add(new Module(id, publicationDate, status, title, description, version,
+                        contactName, contactEmail, 0, serialNumber));
             }
         } catch (
 

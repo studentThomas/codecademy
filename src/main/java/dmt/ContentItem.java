@@ -1,6 +1,9 @@
 package dmt;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import dmt.Data.DatabaseHandler;
 
 public class ContentItem {
     private int id;
@@ -18,6 +21,19 @@ public class ContentItem {
         this.description = description;
         this.progress = progress;
 
+    }
+
+    public double getProgressModule() { // progress of module
+        DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        ArrayList<ContentItem> modulesProgress = databaseHandler.retrieveProgressModule(this.id);
+        if (modulesProgress.size() == 0) {
+            return 0;
+        }
+        double average = modulesProgress.stream()
+                .mapToInt(module -> module.getProgress())
+                .average()
+                .getAsDouble();
+        return average;
     }
 
     public int getId() {

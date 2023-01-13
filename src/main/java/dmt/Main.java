@@ -27,23 +27,27 @@ public class Main {
 
         // person.insertCertificate();
         // person.getProgress();
-        Course course = new Course(3, null, null, null, null, null);
-        course.checkProgressModule();
-        DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        // Course course = new Course(3, null, null, null, null, null);
+        // course.checkProgressModule();
+        // DatabaseHandler databaseHandler = new DatabaseHandler(null);
         // ArrayList<ContentItem> modules = databaseHandler.retrieveCouresModules(3);
         // for (ContentItem module : modules) {
         // System.out.println(course.checkProgressModule(module.getId()));
 
         // }
 
-        // System.out.println(course.checkProgressModules());
+        // Course course = new Course(3, null, null, null, null, null);
+        // DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        // databaseHandler.retrieveCouresModules(3);
+
+        // course.checkProgressModule();
 
         // System.out.println(databaseHandler.retrieveCertificateStatistics("M"));
         // System.out.println(databaseHandler.retrieveTopViewedWebcasts());
         // System.out.println(databaseHandler.retrieveAmoutOfCertificatesPerCourse(3));
         // System.out.println("Modules");
 
-        // Application.launch(HomeUI.class, args);
+        Application.launch(HomeUI.class, args);
         // Application.launch(PersonUI.class, args);
 
     }

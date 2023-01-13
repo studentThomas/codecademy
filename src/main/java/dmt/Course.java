@@ -45,6 +45,8 @@ public class Course {
     }
 
     public double checkProgressCourse() { // progress of course
+        this.databaseHandler = new DatabaseHandler(null);
+        ArrayList<ContentItem> modules = databaseHandler.retrieveCouresModules(this.id);
         double average = modules.stream()
                 .mapToInt(module -> module.getProgress())
                 .average()
