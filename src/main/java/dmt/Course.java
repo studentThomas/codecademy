@@ -3,6 +3,7 @@ package dmt;
 import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import dmt.Data.DatabaseConnectionManager;
 import dmt.Data.DatabaseHandler;
@@ -43,7 +44,7 @@ public class Course {
         return true;
     }
 
-    public double checkProgress() {
+    public double checkProgressCourse() { // progress of course
         double average = modules.stream()
                 .mapToInt(module -> module.getProgress())
                 .average()
@@ -51,18 +52,27 @@ public class Course {
         return average;
     }
 
-    public double checkProgressModule(int moduleId) {
+    public double getProgressModule(int moduleId) { // progress of module
         this.databaseHandler = new DatabaseHandler(null);
-        ArrayList<ContentItem> modulesProgress = this.databaseHandler.retrieveProgressCourseModule(moduleId, this.id);
-        // for (ContentItem module : modulesProgress) {
-        // System.out.println(module.getProgress());
-        // }
-        // return 1.0;
+        ArrayList<ContentItem> modulesProgress = this.databaseHandler.retrieveProgressModule(moduleId);
         double average = modulesProgress.stream()
                 .mapToInt(module -> module.getProgress())
                 .average()
                 .getAsDouble();
         return average;
+    }
+
+    public void checkProgressModule() {
+        try {
+            this.databaseHandler = new DatabaseHandler(null);
+            ArrayList<ContentItem> modules = databaseHandler.retrieveCouresModules(this.id);
+            for (ContentItem module : modules) {
+                System.out.println(getProgressModule(module.getId()));
+            }
+        } catch (Exception e) {
+            System.out.println("Course does not have any modules in use");
+        }
+
     }
 
     public int getId() {

@@ -350,13 +350,12 @@ public class DatabaseHandler {
         return stringBuilder.toString();
     }
 
-    public ArrayList<ContentItem> retrieveProgressCourseModule(int moduleId, int courseId) {
+    public ArrayList<ContentItem> retrieveProgressModule(int moduleId) {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
-                    "SELECT * FROM Module JOIN ModuleViewed ON ModuleViewed.Id = ? WHERE [Module].SerialNumber = ?");
+                    "SELECT * FROM Module JOIN ModuleViewed ON ModuleViewed.Id = ?");
             query.setInt(1, moduleId);
-            query.setInt(2, courseId);
             ResultSet result = query.executeQuery();
 
             while (result.next()) {
@@ -373,6 +372,26 @@ public class DatabaseHandler {
 
                 this.modules.add(new Module(id, publicationDate, status, title, description, version,
                         contactName, contactEmail, progress, serialNumber));
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+        return this.modules;
+    }
+
+    public ArrayList<ContentItem> retrieveCouresModules(int courseId) {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM [Module] WHERE SerialNumber = ?");
+            query.setInt(1, courseId);
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("Id");
+                this.modules.add(new ContentItem(id, null, null, null, email, id));
             }
         } catch (
 

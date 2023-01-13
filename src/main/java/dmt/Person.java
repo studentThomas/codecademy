@@ -62,7 +62,7 @@ public class Person {
 
     public void getProgress() {
         for (Course course : courses) {
-            System.out.println("Progress cursus: " + course.checkProgress());
+            System.out.println("Progress cursus: " + course.checkProgressCourse());
         }
     }
 
