@@ -38,22 +38,19 @@ public class Person {
         this.databaseHandler = new DatabaseHandler(email);
     }
 
-    public Person(String email2, String name2, Date doB, String gender2, String adress, String country2, String city2,
-            Object object) {
-    }
-
     public ArrayList<ContentItem> getViewedWebcasts() {
         this.webcasts = databaseHandler.retrieveViewedWebcasts();
-
         return this.webcasts;
     }
 
     public ArrayList<Course> getEnrolledCourses() {
         this.courses = databaseHandler.retrieveEnrolledCourses();
-        if (this.webcasts.isEmpty()) {
-            return null;
-        }
         return this.courses;
+    }
+
+    public ArrayList<Certificate> getCertificates() {
+        this.certificates = databaseHandler.retrieveCertificate();
+        return this.certificates;
     }
 
     // public ArrayList<ContentItem> getModules() {
@@ -69,13 +66,6 @@ public class Person {
     // course.checkProgressCourse(this.email));
     // }
     // }
-
-    public void getCertificate() {
-        this.certificates = databaseHandler.retrieveCertificate();
-        for (Certificate certificate : certificates) {
-            System.out.println(certificate);
-        }
-    }
 
     public void insertCertificate() {
         databaseHandler.insertCertificate();

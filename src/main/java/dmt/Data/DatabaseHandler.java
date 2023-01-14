@@ -130,9 +130,11 @@ public class DatabaseHandler {
                 String personEmai = result.getString("PersonEmail");
                 String courseId = result.getString("CourseId");
                 Date registrationDate = result.getDate("RegistrationDate");
+                int grade = result.getInt("Grade");
+                String teachter = result.getString("Teacher");
 
-                this.certificates.add(new Certificate(id, personEmai, courseId, registrationDate));
-                updateCertificate(id, personEmai, courseId, registrationDate);
+                this.certificates.add(new Certificate(id, personEmai, courseId, registrationDate, grade, teachter));
+                // updateCertificate(id, personEmai, courseId, registrationDate);
 
             }
         } catch (SQLException e) {

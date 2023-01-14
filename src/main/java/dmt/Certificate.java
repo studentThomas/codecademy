@@ -7,12 +7,16 @@ public class Certificate {
     private String personEmai;
     private String courseId;
     private Date registrationDate;
+    private int grade;
+    private String teachter;
 
-    public Certificate(int id, String personEmail, String courseId, Date registrationDate) {
+    public Certificate(int id, String personEmail, String courseId, Date registrationDate, int grade, String teacher) {
         this.id = id;
         this.personEmai = personEmail;
         this.courseId = courseId;
         this.registrationDate = registrationDate;
+        this.grade = grade;
+        this.teachter = teacher;
     }
 
     public int getId() {
@@ -27,8 +31,16 @@ public class Certificate {
         return this.courseId;
     }
 
-    public Date registrationDate() {
+    public Date getRegistrationDate() {
         return this.registrationDate;
+    }
+
+    public int getGrade() {
+        return this.grade;
+    }
+
+    public String getTeachter() {
+        return this.teachter;
     }
 
     @Override

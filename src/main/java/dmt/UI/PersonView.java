@@ -3,6 +3,7 @@ package dmt.UI;
 import java.util.ArrayList;
 
 import dmt.Data.PersonData;
+import dmt.Certificate;
 import dmt.ContentItem;
 import dmt.Course;
 import dmt.Person;
@@ -37,6 +38,11 @@ public class PersonView {
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
         ArrayList<Course> courses = person.getEnrolledCourses();
         ArrayList<ContentItem> webcasts = person.getViewedWebcasts();
+        ArrayList<Certificate> certificates = person.getCertificates();
+
+        for (Certificate certificate : certificates) {
+            System.out.println(certificate.getId());
+        }
 
         HBox layout = new HBox();
         layout.setPadding(new Insets(20, 20, 20, 20));
@@ -54,18 +60,31 @@ public class PersonView {
 
         VBox personData = new VBox();
         personData.setSpacing(10);
-        Label courseLabel = new Label("Courses");
-        courseLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 22));
+        Label courseLabel = new Label("Course(s)" + " (" + courses.size() + ") ");
+        courseLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
         personData.getChildren().add(courseLabel);
-        for (Course course : courses) {
-            personData.getChildren().add(createCourse(course, person));
+        if (webcasts.size() > 0) {
+            for (Course course : courses) {
+                personData.getChildren().add(createCourse(course, person));
+            }
         }
-        Label webcastLabel = new Label("Webcasts");
-        webcastLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 22));
+        Label webcastLabel = new Label("Webcast(s)" + " (" + webcasts.size() + ") ");
+        webcastLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
         personData.getChildren().add(webcastLabel);
-        for (ContentItem webcast : webcasts) {
-            personData.getChildren().add(createWebcast(webcast, person));
-            System.out.println(webcast.getId() + webcast.getStatus() + webcast.getProgress());
+        if (webcasts.size() > 0) {
+            for (ContentItem webcast : webcasts) {
+                personData.getChildren().add(createWebcast(webcast, person));
+            }
+        }
+
+        Label certificateLabel = new Label("Certificate(s)" + " (" + certificates.size() + ") ");
+        certificateLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
+        personData.getChildren().add(certificateLabel);
+        if (certificates.size() > 0) {
+            for (Certificate certificate : certificates) {
+                personData.getChildren().add(createCertificate(certificate, person));
+                System.out.println(certificate.getTeachter());
+            }
         }
 
         layout.getChildren().addAll(personInfo, personData);
@@ -172,6 +191,42 @@ public class PersonView {
         stackPane.getChildren().addAll(moduleInfo, progress, progressText);
         StackPane.setAlignment(progress, Pos.BOTTOM_RIGHT);
         StackPane.setAlignment(progressText, Pos.BOTTOM_RIGHT);
+        stackPane.setAlignment(Pos.CENTER);
+
+        borderPane.setLeft(stackPane);
+
+        return borderPane;
+    }
+
+    private static BorderPane createCertificate(Certificate certificate, Person person) {
+
+        BorderPane borderPane = new BorderPane();
+
+        StackPane stackPane = new StackPane();
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setWidth(800);
+        rectangle.setHeight(100);
+        rectangle.setFill(Color.WHITE);
+        rectangle.setStroke(Color.LIGHTGRAY);
+        rectangle.setStrokeWidth(1);
+
+        stackPane.getChildren().add(rectangle);
+
+        VBox moduleInfo = new VBox();
+
+        Label webcastLabel = new Label("Certificate");
+        webcastLabel.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
+        webcastLabel.setTextFill(Color.web("#10162f"));
+        Label title = new Label("Grade: " + certificate.getGrade());
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        title.setTextFill(Color.web("#10162f"));
+
+        moduleInfo.getChildren().addAll(webcastLabel, title);
+        moduleInfo.setPadding(new Insets(20, 20, 20, 40));
+        moduleInfo.setSpacing(10);
+
+        stackPane.getChildren().addAll(moduleInfo);
         stackPane.setAlignment(Pos.CENTER);
 
         borderPane.setLeft(stackPane);
