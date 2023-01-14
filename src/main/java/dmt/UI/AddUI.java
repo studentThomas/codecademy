@@ -1,6 +1,9 @@
 package dmt.UI;
 
 
+import dmt.Course;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -14,8 +17,11 @@ import javafx.stage.Stage;
 
 public class AddUI {
     public static Parent getView() {
-        ScrollPane scrollPane = new ScrollPane();
 
+        
+        AddCourse addCourse = new AddCourse();
+        
+        ScrollPane scrollPane = new ScrollPane();
         BorderPane layout = new BorderPane();
         layout.setCenter(scrollPane);
 
@@ -35,8 +41,9 @@ public class AddUI {
             vBox.getChildren().add(AddCertificateButton);
             AddCertificateButton.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
             
-            // button.setOnAction((event) -> {
-            //     layout.setCenter(courseView.getView(course));
+            AddCourseButton.setOnAction((event) -> {
+                layout.setCenter(AddCourse.getView());
+            });
 
         scrollPane.setContent(vBox);
         scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");
@@ -45,3 +52,4 @@ public class AddUI {
         return layout;
     }
 }
+

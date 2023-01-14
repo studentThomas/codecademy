@@ -45,11 +45,11 @@ public class PersonData {
                     "INSERT INTO Person (Email, Name, DoB, Gender, Adress, Country, City) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             // Explained: Sets the values for the insert query
-            query.setString(1, "Zevi@example.com");
-            query.setString(2, "Z Smith");
-            query.setDate(3, Date.valueOf("1980-01-01"));
+            query.setString(1, "Xevi@example.com");
+            query.setString(2, "X Smith");
+            query.setDate(3, Date.valueOf("1980-01-02"));
             query.setString(4, "male");
-            query.setString(5, "123 Z Street.");
+            query.setString(5, "123 X Street.");
             query.setString(6, "Nederlands");
             query.setString(7, "Ablasserdam");
             int rowsAffected = query.executeUpdate();

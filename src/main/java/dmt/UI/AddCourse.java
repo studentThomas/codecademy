@@ -1,10 +1,15 @@
 package dmt.UI;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dmt.Data.PersonData;
 import dmt.Course;
 import dmt.Person;
+import dmt.Data.DatabaseConnectionManager;
 import dmt.Data.DatabaseHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,17 +26,56 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AddCourse {
-    public Parent getView(Course course) {
-        DatabaseHandler databaseHandler = new DatabaseHandler(null);
-        ArrayList<Course> courses = databaseHandler.retrieveCourses();
+    
+    public static Parent getView() {
         ScrollPane scrollPane = new ScrollPane();
+        BorderPane layout = new BorderPane();
+        layout.setCenter(scrollPane);
+        
+        VBox vBox = new VBox();
 
+        Label IdAsk = new Label("Enter Id:");
+        TextField IdField = new TextField();
+        Label NameAsk = new Label("Enter your Name:");
+        TextField NameField = new TextField();
+        Label SubjectAsk = new Label("Enter the subject:");
+        TextField SubjectField = new TextField();
+        Label IntroductionAsk = new Label("Enter the introduction:");
+        TextField IntroductionField = new TextField();
+        Label LevelAsk = new Label("Enter the difficulty level(Beginner, Advanced, Expert):");
+        TextField LevelField = new TextField();
+        Button startButton = new Button("Insert Data");
+        vBox.getChildren().addAll(IdAsk, IdField, NameAsk, NameField, SubjectAsk, SubjectField, IntroductionAsk, IntroductionField, LevelAsk, LevelField, startButton);
 
+        //collect inserted data
+        startButton.setOnAction((event) -> {
+            String id = IdField.getText();
+            String name = NameField.getText();
+            String subject = SubjectField.getText();
+            String introduction = IntroductionField.getText();
+            String level = LevelField.getText();
+            
+            try {
+                Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+                PreparedStatement query = connection.prepareStatement(
+                        "INSERT INTO Course (Id, Name, Subject, Introduction, Level) VALUES (?, ?, ?, ?, ?)");
+    
+                // Explained: Sets the values for the insert query
+                query.setString(1, id);
+                query.setString(2, name);
+                query.setString(3, subject);
+                query.setString(4, introduction);
+                query.setString(5, level);
+                int rowsAffected = query.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }); 
 
         
-        VBox layout = new VBox(20); 
-        layout.setPadding(new Insets(10, 20, 20, 20));
-        layout.setStyle("-fx-background-color: #383838; -fx-border-color: red; ");
+        scrollPane.setContent(vBox);
+        scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;"); 
+
         return layout;
     }
 }

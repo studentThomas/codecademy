@@ -23,6 +23,7 @@ public class HomeUI extends Application {
         // 2. Create the views ("subviews")
         PersonUI personUI = new PersonUI();
         CourseUI courseUI = new CourseUI();
+        
         // 3. Create the higher level layout
         BorderPane layout = new BorderPane();
 

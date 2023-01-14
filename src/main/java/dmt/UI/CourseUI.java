@@ -2,22 +2,14 @@ package dmt.UI;
 
 import java.util.ArrayList;
 
-import dmt.Data.PersonData;
 import dmt.Course;
-import dmt.Person;
 import dmt.Data.DatabaseHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 public class CourseUI {
     public Parent getView() {
@@ -38,7 +30,6 @@ public class CourseUI {
 
             button.setOnAction((event) -> {
                 layout.setCenter(courseView.getView(course));
-
             });
 
         }
