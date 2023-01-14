@@ -96,6 +96,7 @@ public class CourseView {
 
         modules.setPadding(new Insets(40, 20, 10, 0));
 
+        vBox.setSpacing(10);
         for (ContentItem module : contentItems) {
             vBox.getChildren().add(createModule(module));
 
@@ -137,9 +138,10 @@ public class CourseView {
                 new Translate(80, 20),
                 new Rotate(-90, 0, 0));
         Label progressText = new Label("Hallo");
+        progressText.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         progressText.textProperty().bind(Bindings.format("%.0f%%", progress.progressProperty().multiply(100)));
         progress.setStyle(
-                "-fx-accent: #eaf0f4; -fx-background-color: #eaf0f4, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
+                "-fx-accent: #ffd302; -fx-background-color: #ffd302, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
 
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);

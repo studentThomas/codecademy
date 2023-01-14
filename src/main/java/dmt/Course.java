@@ -44,9 +44,9 @@ public class Course {
         return true;
     }
 
-    public double checkProgressCourse() { // progress of course
+    public double checkProgressCourse(String email) { // progress of course
         this.databaseHandler = new DatabaseHandler(null);
-        ArrayList<ContentItem> modules = databaseHandler.retrieveCouresModules(this.id);
+        ArrayList<ContentItem> modules = getModules(email);
         double average = modules.stream()
                 .mapToInt(module -> module.getProgress())
                 .average()
@@ -54,28 +54,30 @@ public class Course {
         return average;
     }
 
-    public double getProgressModule(int moduleId) { // progress of module
-        this.databaseHandler = new DatabaseHandler(null);
-        ArrayList<ContentItem> modulesProgress = this.databaseHandler.retrieveProgressModule(moduleId);
-        double average = modulesProgress.stream()
-                .mapToInt(module -> module.getProgress())
-                .average()
-                .getAsDouble();
-        return average;
-    }
+    // public double getProgressModule(int moduleId) { // progress of module
+    // this.databaseHandler = new DatabaseHandler(null);
+    // ArrayList<ContentItem> modulesProgress =
+    // this.databaseHandler.retrieveProgressModule(moduleId);
+    // double average = modulesProgress.stream()
+    // .mapToInt(module -> module.getProgress())
+    // .average()
+    // .getAsDouble();
+    // return average;
+    // }
 
-    public void checkProgressModule() {
-        try {
-            this.databaseHandler = new DatabaseHandler(null);
-            ArrayList<ContentItem> modules = databaseHandler.retrieveCouresModules(this.id);
-            for (ContentItem module : modules) {
-                System.out.println(getProgressModule(module.getId()));
-            }
-        } catch (Exception e) {
-            System.out.println("Course does not have any modules in use");
-        }
+    // public void checkProgressModule() {
+    // try {
+    // this.databaseHandler = new DatabaseHandler(null);
+    // ArrayList<ContentItem> modules =
+    // databaseHandler.retrieveCouresModules(this.id);
+    // for (ContentItem module : modules) {
+    // System.out.println(getProgressModule(module.getId()));
+    // }
+    // } catch (Exception e) {
+    // System.out.println("Course does not have any modules in use");
+    // }
 
-    }
+    // }
 
     public int getId() {
         return this.id;
