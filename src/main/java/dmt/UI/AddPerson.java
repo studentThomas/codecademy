@@ -25,7 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AddCourse {
+public class AddPerson {
     
     public static Parent getView() {
         ScrollPane scrollPane = new ScrollPane();
@@ -36,38 +36,45 @@ public class AddCourse {
         VBox vBox = new VBox();
         VBox vBox2 = new VBox();
 
-        Label IdAsk = new Label("Enter Id:");
-        TextField IdField = new TextField();
-        Label NameAsk = new Label("Enter your Name:");
+        Label EmailAsk = new Label("Enter Email:");
+        TextField EmailField = new TextField();
+        Label NameAsk = new Label("Enter name:");
         TextField NameField = new TextField();
-        Label SubjectAsk = new Label("Enter the subject:");
-        TextField SubjectField = new TextField();
-        Label IntroductionAsk = new Label("Enter the introduction:");
-        TextField IntroductionField = new TextField();
-        Label LevelAsk = new Label("Enter the difficulty level(Beginner, Advanced, Expert):");
-        TextField LevelField = new TextField();
+        Label DoBAsk = new Label("Enter date of birth:");
+        TextField DoBField = new TextField();
+        Label GenderAsk = new Label("Enter gender:");
+        TextField GenderField = new TextField();
+        Label AdressAsk = new Label("Enter adress");
+        TextField AdressField = new TextField();
+        Label CountryAsk = new Label("Enter country");
+        TextField CountryField = new TextField();
+        Label CityAsk = new Label("Enter city");
+        TextField CityField = new TextField();
         Button startButton = new Button("Insert Data");
-        vBox.getChildren().addAll(IdAsk, IdField, NameAsk, NameField, SubjectAsk, SubjectField, IntroductionAsk, IntroductionField, LevelAsk, LevelField, startButton);
+        vBox.getChildren().addAll(EmailAsk, EmailField, NameAsk, NameField, DoBAsk, DoBField, GenderAsk, GenderField, AdressAsk, AdressField, CountryAsk, CountryField, CityAsk, CityField, startButton);
 
         //collect inserted data
         startButton.setOnAction((event) -> {
-            String id = IdField.getText();
+            String email = EmailField.getText();
             String name = NameField.getText();
-            String subject = SubjectField.getText();
-            String introduction = IntroductionField.getText();
-            String level = LevelField.getText();
-            
+            String DoB = DoBField.getText();
+            String gender = GenderField.getText();
+            String adress = AdressField.getText();
+            String country = CountryField.getText();
+            String city = CityField.getText();
             try {
                 Connection connection = DatabaseConnectionManager.getInstance().getConnection();
                 PreparedStatement query = connection.prepareStatement(
-                        "INSERT INTO Course (Id, Name, Subject, Introduction, Level) VALUES (?, ?, ?, ?, ?)");
+                        "INSERT INTO Person (Email, Name, DoB, Gender, Adress, Country, City) VALUES (?, ?, ?, ?, ?, ?, ?)");
     
                 // Explained: Sets the values for the insert query
-                query.setString(1, id);
+                query.setString(1, email);
                 query.setString(2, name);
-                query.setString(3, subject);
-                query.setString(4, introduction);
-                query.setString(5, level);
+                query.setString(3, DoB);
+                query.setString(4, gender);
+                query.setString(5, adress);
+                query.setString(6, country);
+                query.setString(7, city);
                 int rowsAffected = query.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -76,10 +83,10 @@ public class AddCourse {
             //second layout
             BorderPane layout2 = new BorderPane();
             Button BackAfterAdd = new Button("go back");;
-            Label confirmation = new Label("entered into database: Id = " + id + ", Name = " + name + ", Subject = " + subject + ", level = " + level + ", introduction = " + introduction);
+            Label confirmation = new Label("entered into database: Email = " + email + ", Name = " + name + ", DoB = " + DoB + ", Gender = " + gender + ", Adress= " + adress + ", Country = " + country + ", City = " + city);
             vBox2.getChildren().addAll(confirmation, BackAfterAdd);
             BackAfterAdd.setOnAction((event2) -> {
-                layout.setCenter(AddCourse.getView());
+                layout.setCenter(AddPerson.getView());
             });
             scrollPane.setContent(vBox2);
             layout2.setCenter(scrollPane2);

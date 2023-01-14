@@ -41,9 +41,18 @@ public class AddUI {
             vBox.getChildren().add(AddCertificateButton);
             AddCertificateButton.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
             
+            AddPersonButton.setOnAction((event) -> {
+                layout.setCenter(AddPerson.getView());
+            });
             AddCourseButton.setOnAction((event) -> {
                 layout.setCenter(AddCourse.getView());
             });
+            // AddEnrollmentButton.setOnAction((event) -> {
+            //     layout.setCenter(AddCourse.getView());
+            // });
+            // AddCertificateButton.setOnAction((event) -> {
+            //     layout.setCenter(AddCourse.getView());
+            // });
 
         scrollPane.setContent(vBox);
         scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");
