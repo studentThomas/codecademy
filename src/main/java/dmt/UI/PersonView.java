@@ -46,19 +46,35 @@ public class PersonView {
 
         HBox layout = new HBox();
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.setStyle("-fx-background-color: #f5fcff; ");
+
         layout.setSpacing(100);
+
+        HBox buttons = new HBox();
+        buttons.setSpacing(10);
+
+        Button edit = new Button("Edit");
+        edit.setStyle(
+                "-fx-background-color: #3a11e5; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
+
+        Button delete = new Button("Delete");
+        delete.setStyle(
+                "-fx-background-color: #eaf0f4; -fx-text-fill: #3a11e5; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
+
+        buttons.getChildren().addAll(edit, delete);
 
         VBox personInfo = new VBox();
         personInfo.setSpacing(10);
         Label user = new Label(person.getName() + " (" + person.getGender() + ")");
         Label email = new Label(person.getEmail());
+        email.setWrapText(true);
         email.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
         Label country = new Label(person.getCountry());
 
-        personInfo.getChildren().addAll(email, user, country);
+        personInfo.getChildren().addAll(email, buttons, user, country);
 
         VBox personData = new VBox();
+        layout.setMinWidth(1200);
+        personData.setPadding(new Insets(20, 35, 20, 10));
         personData.setSpacing(10);
         Label courseLabel = new Label("Course(s)" + " (" + courses.size() + ") ");
         courseLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
@@ -83,18 +99,24 @@ public class PersonView {
         if (certificates.size() > 0) {
             for (Certificate certificate : certificates) {
                 personData.getChildren().add(createCertificate(certificate, person));
-                System.out.println(certificate.getTeachter());
             }
         }
-
-        layout.getChildren().addAll(personInfo, personData);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(personData);
+        personData.setStyle("-fx-border-color: fffff; -fx-background-color: fffff;");
+        personInfo.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
+        scrollPane.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
+        layout.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
+        buttons.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setFitToWidth(true);
+        layout.getChildren().addAll(personInfo, scrollPane);
         return layout;
     }
 
     private static BorderPane createCourse(Course course, Person person) {
 
         BorderPane borderPane = new BorderPane();
-
         StackPane stackPane = new StackPane();
 
         Rectangle rectangle = new Rectangle();

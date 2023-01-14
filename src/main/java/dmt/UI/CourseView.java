@@ -48,8 +48,8 @@ public class CourseView {
         VBox courseInfo = new VBox();
         courseInfo.setSpacing(10);
 
-        Button update = new Button("Update");
-        update.setStyle(
+        Button edit = new Button("Edit");
+        edit.setStyle(
                 "-fx-background-color: #3a11e5; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
 
         Button delete = new Button("Delete");
@@ -75,7 +75,7 @@ public class CourseView {
         courseInfo.getChildren().addAll(label1, line1, label2, line2, label3, line3);
 
         VBox vBox = new VBox();
-
+        vBox.setStyle("-fx-border-color: #f5fcff;; -fx-background-color: #f5fcff;;");
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(20, 20, 20, 20));
 
@@ -99,11 +99,17 @@ public class CourseView {
         vBox.setSpacing(10);
         for (ContentItem module : contentItems) {
             vBox.getChildren().add(createModule(module));
+            vBox.getChildren().add(createModule(module));
 
         }
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(vBox);
+        scrollPane.setStyle("-fx-border-color: #f5fcff;; -fx-background-color: #f5fcff;;");
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setFitToWidth(true);
         hBox.getChildren().addAll(description, courseInfo);
-        buttons.getChildren().addAll(update, delete);
-        layout.getChildren().addAll(name, buttons, hBox, modules, vBox);
+        buttons.getChildren().addAll(edit, delete);
+        layout.getChildren().addAll(name, buttons, hBox, modules, scrollPane);
         return layout;
     }
 

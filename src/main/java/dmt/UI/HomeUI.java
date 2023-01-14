@@ -23,7 +23,7 @@ public class HomeUI extends Application {
         // 2. Create the views ("subviews")
         PersonUI personUI = new PersonUI();
         CourseUI courseUI = new CourseUI();
-        
+
         // 3. Create the higher level layout
         BorderPane layout = new BorderPane();
 
@@ -65,6 +65,7 @@ public class HomeUI extends Application {
         // 6. Create the main view and add the high level layout
         Scene view = new Scene(layout, 1200, 750);
         layout.setStyle("-fx-background-color: red");
+
         // 7. Show the application
 
         stage.setTitle("CodeCademy");
