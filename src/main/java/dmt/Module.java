@@ -2,6 +2,8 @@ package dmt;
 
 import java.sql.Date;
 
+import dmt.Data.DatabaseHandler;
+
 public class Module extends ContentItem {
     private int serialNumber;
     private int version;

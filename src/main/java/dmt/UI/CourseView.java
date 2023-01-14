@@ -37,6 +37,7 @@ public class CourseView {
 
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
         ArrayList<ContentItem> contentItems = databaseHandler.retrieveCouresModules(course.getId());
+        int amount = databaseHandler.retrieveAmoutOfCertificatesPerCourse(course.getId());
 
         HBox hBox = new HBox();
         hBox.setSpacing(100);
@@ -55,10 +56,10 @@ public class CourseView {
         delete.setStyle(
                 "-fx-background-color: #eaf0f4; -fx-text-fill: #3a11e5; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
 
-        Label label1 = new Label("Earn a certificate");
-        Label label2 = new Label(contentItems.size() + " Modules");
+        Label label2 = new Label(contentItems.size() + " Module(s)");
+        Label label1 = new Label("Passed by " + amount + " Person(s)");
         Label label3 = new Label(course.getLevel());
-        label1.setFont(Font.font("Verdana", FontWeight.LIGHT, 15));
+        label1.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         label2.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         label3.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 
@@ -68,6 +69,8 @@ public class CourseView {
         line2.setEndX(200);
         Line line3 = new Line();
         line3.setEndX(200);
+        Line line4 = new Line();
+        line4.setEndX(200);
 
         courseInfo.getChildren().addAll(label1, line1, label2, line2, label3, line3);
 
@@ -93,6 +96,7 @@ public class CourseView {
 
         modules.setPadding(new Insets(40, 20, 10, 0));
 
+        vBox.setSpacing(10);
         for (ContentItem module : contentItems) {
             vBox.getChildren().add(createModule(module));
 
@@ -134,9 +138,10 @@ public class CourseView {
                 new Translate(80, 20),
                 new Rotate(-90, 0, 0));
         Label progressText = new Label("Hallo");
+        progressText.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         progressText.textProperty().bind(Bindings.format("%.0f%%", progress.progressProperty().multiply(100)));
         progress.setStyle(
-                "-fx-accent: #eaf0f4; -fx-background-color: #eaf0f4, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
+                "-fx-accent: #ffd302; -fx-background-color: #ffd302, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
 
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);

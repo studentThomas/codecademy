@@ -18,6 +18,7 @@ public class Person {
     private String country;
     private ArrayList<Course> courses;
     private ArrayList<ContentItem> webcasts;
+    private ArrayList<ContentItem> modules;
     private ArrayList<Certificate> certificates;
     private DatabaseHandler databaseHandler;
 
@@ -32,6 +33,7 @@ public class Person {
         this.country = country;
         this.courses = new ArrayList<>();
         this.webcasts = new ArrayList<>();
+        this.modules = new ArrayList<>();
         this.certificates = new ArrayList<>();
         this.databaseHandler = new DatabaseHandler(email);
     }
@@ -40,31 +42,33 @@ public class Person {
             Object object) {
     }
 
-    public void getViewedWebcasts() {
+    public ArrayList<ContentItem> getViewedWebcasts() {
         this.webcasts = databaseHandler.retrieveViewedWebcasts();
-        for (ContentItem webcast : webcasts) {
-            System.out.println(webcast);
-        }
+
+        return this.webcasts;
     }
 
-    public void getEnrolledCourses() {
+    public ArrayList<Course> getEnrolledCourses() {
         this.courses = databaseHandler.retrieveEnrolledCourses();
-        for (Course course : courses) {
-            System.out.println(course);
+        if (this.webcasts.isEmpty()) {
+            return null;
         }
+        return this.courses;
     }
 
-    public void getModules() {
-        for (Course course : courses) {
-            System.out.println(course.getModules(this.email) + "\n");
-        }
-    }
+    // public ArrayList<ContentItem> getModules() {
+    // for (Course course : courses) {
+    // System.out.println(course.getModules(this.email) + "\n");
+    // this.modules = course.getModules(this.email);
+    // }
+    // }
 
-    public void getProgress() {
-        for (Course course : courses) {
-            System.out.println("Progress cursus: " + course.checkProgressCourse());
-        }
-    }
+    // public void getProgress() {
+    // for (Course course : courses) {
+    // System.out.println("Progress cursus: " +
+    // course.checkProgressCourse(this.email));
+    // }
+    // }
 
     public void getCertificate() {
         this.certificates = databaseHandler.retrieveCertificate();
