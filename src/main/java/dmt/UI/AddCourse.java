@@ -29,10 +29,12 @@ public class AddCourse {
     
     public static Parent getView() {
         ScrollPane scrollPane = new ScrollPane();
+        ScrollPane scrollPane2 = new ScrollPane();
         BorderPane layout = new BorderPane();
         layout.setCenter(scrollPane);
         
         VBox vBox = new VBox();
+        VBox vBox2 = new VBox();
 
         Label IdAsk = new Label("Enter Id:");
         TextField IdField = new TextField();
@@ -70,6 +72,17 @@ public class AddCourse {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            //second layout
+            BorderPane layout2 = new BorderPane();
+            Button BackAfterAdd = new Button("go back");;
+            Label confirmation = new Label("entered into database: Id = " + id + " Name = " + name + " Subject = " + subject + "level = " + level + "introduction = " + introduction);
+            vBox2.getChildren().addAll(confirmation, BackAfterAdd);
+            BackAfterAdd.setOnAction((event2) -> {
+                layout.setCenter(AddCourse.getView());
+            });
+            scrollPane.setContent(vBox2);
+            layout2.setCenter(scrollPane2);
         }); 
 
         
