@@ -3,7 +3,10 @@ package dmt.UI;
 
 import java.util.ArrayList;
 
+import dmt.ContentItem;
 import dmt.Person;
+import dmt.Webcast;
+import dmt.Data.DatabaseHandler;
 import dmt.Data.PersonData;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,27 +20,27 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PersonUI {
+public class WebcastUI {
 
-    public Parent getView() {
-        ArrayList<Person> persons = PersonData.getPersons();
+    public static Parent getView() {
+        DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        ArrayList<ContentItem> webcasts = databaseHandler.retrieveWebcasts();
         ScrollPane scrollPane = new ScrollPane();
-        PersonView personView = new PersonView();
 
         BorderPane layout = new BorderPane();
         layout.setCenter(scrollPane);
 
         VBox vBox = new VBox();
-        for (Person person : persons) {
+        for (ContentItem webcast : webcasts) {
             Button button = new Button();
-            button.setText(person.getName());
+            button.setText(webcast.getTitle());
             button.setStyle("-fx-background-color: #bdbdbb; -fx-font-size: 12px; -fx-text-fill: black;");
             vBox.getChildren().add(button);
 
-            button.setOnAction((event) -> {
-                layout.setCenter(personView.getView(person));
+            // button.setOnAction((event) -> {
+            // layout.setCenter(personView.getView(person));
 
-            });
+            // });
 
         }
         vBox.setSpacing(10);

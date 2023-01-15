@@ -43,6 +43,7 @@ public class DatabaseHandler {
             while (result.next()) {
                 int id = result.getInt("Id");
                 String title = result.getString("Title");
+                String status = result.getString("Status");
                 String description = result.getString("Description");
                 String speakerName = result.getString("SpeakerName");
                 String organization = result.getString("Organization");
@@ -53,8 +54,44 @@ public class DatabaseHandler {
 
                 // haal arralist op database.getviewewebcast
 
-                this.webcasts.add(new Webcast(id, publicationDate, url, title, description, speakerName, organization,
-                        progress, watchTime));
+                this.webcasts
+                        .add(new Webcast(id, publicationDate, status, title, description, speakerName, organization,
+                                progress, watchTime, url));
+
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+
+        return webcasts;
+    }
+
+    public ArrayList<ContentItem> retrieveWebcasts() {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT * FROM Webcast");
+
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("Id");
+                String title = result.getString("Title");
+                String status = result.getString("Status");
+                String description = result.getString("Description");
+                String speakerName = result.getString("SpeakerName");
+                String organization = result.getString("Organization");
+                int watchTime = result.getInt("WatchTime");
+                Date publicationDate = result.getDate("PublicationDate");
+                String url = result.getString("Url");
+
+                // haal arralist op database.getviewewebcast
+
+                this.webcasts
+                        .add(new Webcast(id, publicationDate, status, title, description, speakerName, organization,
+                                0, watchTime, url));
 
             }
         } catch (

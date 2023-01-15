@@ -23,6 +23,7 @@ public class HomeUI extends Application {
         // 2. Create the views ("subviews")
         PersonUI personUI = new PersonUI();
         CourseUI courseUI = new CourseUI();
+        WebcastUI webcastUI = new WebcastUI();
 
         // 3. Create the higher level layout
         BorderPane layout = new BorderPane();
@@ -35,11 +36,13 @@ public class HomeUI extends Application {
         // 3.2. Create the menu buttons
         Button enterButton = new Button("Persons");
         Button practiceButton = new Button("Courses");
+        Button webcastButton = new Button("Webcasts");
         Button addButton = new Button("Add new data");
 
         // add styling to the menu buttons
         enterButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         practiceButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
+        webcastButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         addButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         DropShadow shadow = new DropShadow();
         shadow.setOffsetX(1);
@@ -47,16 +50,18 @@ public class HomeUI extends Application {
         shadow.setColor(Color.BLACK);
         enterButton.setEffect(shadow);
         practiceButton.setEffect(shadow);
+        webcastButton.setEffect(shadow);
         addButton.setEffect(shadow);
 
         // 3.3. Add the buttons to the menu
-        menu.getChildren().addAll(enterButton, practiceButton, addButton);
+        menu.getChildren().addAll(enterButton, practiceButton, webcastButton, addButton);
         layout.setTop(menu);
 
         // 4. Connect the subviews with the buttons. Clicking menu buttons changes the
         // subview.
         enterButton.setOnAction((event) -> layout.setCenter(personUI.getView()));
         practiceButton.setOnAction((event) -> layout.setCenter(courseUI.getView()));
+        webcastButton.setOnAction((event) -> layout.setCenter(WebcastUI.getView()));
         addButton.setOnAction((event) -> layout.setCenter(AddUI.getView()));
 
         // 5. First show the input view
