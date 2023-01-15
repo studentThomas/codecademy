@@ -6,6 +6,7 @@ import dmt.Data.PersonData;
 import dmt.ContentItem;
 import dmt.Course;
 import dmt.Person;
+import dmt.Data.CRUD;
 import dmt.Data.DatabaseHandler;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -34,9 +35,12 @@ import javafx.stage.Stage;
 
 public class CourseView {
     public Parent getView(Course course, boolean person, Person person2) {
-
+        UpdateCourse updateCourse = new UpdateCourse();
+        CRUD crud = new CRUD();
         ArrayList<ContentItem> contentItems = new ArrayList<>();
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
+
+        VBox layout = new VBox(20);
 
         if (person) {
             contentItems = databaseHandler.getModules(person2.getEmail(), course.getId());
@@ -44,14 +48,6 @@ public class CourseView {
             contentItems = databaseHandler.retrieveCouresModules(course.getId());
         }
 
-        for (ContentItem module : contentItems) {
-            System.out.println(module);
-        }
-        // ArrayList<ContentItem> modulesArrayList =
-        // course.getModules(person2.getEmail());
-        // for (ContentItem m : modulesArrayList) {
-        // System.out.println(m.getId() + " " + m.getProgress());
-        // }
         int amount = databaseHandler.retrieveAmoutOfCertificatesPerCourse(course.getId());
 
         HBox hBox = new HBox();
@@ -70,6 +66,17 @@ public class CourseView {
         Button delete = new Button("Delete");
         delete.setStyle(
                 "-fx-background-color: #eaf0f4; -fx-text-fill: black; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
+
+        edit.setOnAction(event -> {
+            layout.getChildren()
+                    .setAll(updateCourse.getView(course.getName(), course.getSubject(), course.getIntroduction(),
+                            course.getLevel()));
+        });
+        delete.setOnAction(event -> {
+            crud.deleteCourse(course.getName());
+            delete.setText("Deleted");
+
+        });
 
         Label label2 = new Label(contentItems.size() + " Module(s)");
         Label label1 = new Label("Passed by " + amount + " Person(s)");
@@ -91,7 +98,7 @@ public class CourseView {
 
         VBox vBox = new VBox();
         vBox.setStyle("-fx-border-color: #f5fcff;; -fx-background-color: #f5fcff;;");
-        VBox layout = new VBox(20);
+
         layout.setPadding(new Insets(20, 20, 20, 20));
 
         layout.setStyle("-fx-background-color: #f5fcff; ");
@@ -158,7 +165,6 @@ public class CourseView {
             double progressd = (double) module.getProgress();
             progress.setProgress(progressd / 100);
         } else {
-            System.out.println(module.getProgressModule());
             progress.setProgress(module.getProgressModule() / 100);
         }
 

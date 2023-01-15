@@ -26,13 +26,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class UpdatePerson {
+public class UpdateCourse {
 
-    public Parent getView(String email, String name, Date date, String gender, String adress, String country,
-            String city) {
+    public Parent getView(String name, String subject, String introduction, String level) {
 
         CRUD crud = new CRUD();
-        PersonView personView = new PersonView();
         VBox vBox = new VBox();
         BorderPane layout = new BorderPane();
         layout.setCenter(vBox);
@@ -41,42 +39,33 @@ public class UpdatePerson {
         vBox.setSpacing(7);
         Label affected = new Label();
 
-        Label EmailAsk = new Label("Enter Email:");
-        TextField EmailField = new TextField();
-        EmailField.setText(email);
         Label NameAsk = new Label("Enter name:");
         TextField NameField = new TextField();
         NameField.setText(name);
-        Label DoBAsk = new Label("Enter date of birth:");
-        TextField DoBField = new TextField();
-        DoBField.setText(date.toString());
-        Label GenderAsk = new Label("Enter gender:");
-        TextField GenderField = new TextField();
-        GenderField.setText(gender);
-        Label AdressAsk = new Label("Enter adress");
-        TextField AdressField = new TextField();
-        AdressField.setText(adress);
-        Label CountryAsk = new Label("Enter country");
-        TextField CountryField = new TextField();
-        CountryField.setText(country);
-        Label CityAsk = new Label("Enter city");
-        TextField CityField = new TextField();
-        CityField.setText(city);
+        Label SubjectAsk = new Label("Enter subject:");
+        TextField SubjectField = new TextField();
+        SubjectField.setText(subject);
+
+        Label IntroductionAsk = new Label("Enter introduction:");
+        TextField IntroductionField = new TextField();
+        IntroductionField.setText(introduction);
+        Label LevelAsk = new Label("Enter Level");
+        TextField LevelField = new TextField();
+        LevelField.setText(level);
+
         Button update = new Button("Update");
         update.setStyle(
                 "-fx-background-color: #eaf0f4; -fx-text-fill: #3a11e5; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
-        vBox.getChildren().addAll(EmailAsk, EmailField, NameAsk, NameField, DoBAsk, DoBField, GenderAsk, GenderField,
-                AdressAsk, AdressField, CountryAsk, CountryField, CityAsk, CityField, update, affected);
+        vBox.getChildren().addAll(NameAsk, NameField, SubjectAsk, SubjectField, IntroductionAsk, IntroductionField,
+                LevelAsk, LevelField, update, affected);
 
         update.setOnAction((event) -> {
-            String Email = EmailField.getText();
             String Name = NameField.getText();
-            String DoB = DoBField.getText();
-            String Gender = GenderField.getText();
-            String Adress = AdressField.getText();
-            String Country = CountryField.getText();
-            String City = CityField.getText();
-            int rowsAffected = crud.updatePerson(Email, Name, DoB, Gender, Adress, Country, City, email);
+            String Subject = SubjectField.getText();
+            String Introduction = IntroductionField.getText();
+            String Level = LevelField.getText();
+
+            int rowsAffected = crud.updateCourse(Name, Subject, Introduction, Level, name);
             affected.setText("Rows affected " + String.valueOf(rowsAffected));
             update.setText("Updated");
         });
