@@ -30,8 +30,8 @@ public class Course {
     }
 
     public ArrayList<ContentItem> getModules(String email) {
-        this.databaseHandler = new DatabaseHandler(email);
-        this.modules = databaseHandler.getModules(this.id);
+        // this.databaseHandler = new DatabaseHandler(email);
+        this.modules = databaseHandler.getModules(email, this.id);
         return this.modules;
     }
 

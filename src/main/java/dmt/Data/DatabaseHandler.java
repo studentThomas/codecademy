@@ -210,12 +210,12 @@ public class DatabaseHandler {
         }
     }
 
-    public ArrayList<ContentItem> getModules(int serial) {
+    public ArrayList<ContentItem> getModules(String email, int serial) {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
                     "SELECT * FROM Module JOIN ModuleViewed ON [Module].Id = ModuleViewed.Id WHERE ModuleViewed.Email = ? AND Module.SerialNumber = ?");
-            query.setString(1, this.email);
+            query.setString(1, email);
             query.setInt(2, serial);
             ResultSet result = query.executeQuery();
 
@@ -387,7 +387,7 @@ public class DatabaseHandler {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
             PreparedStatement query = connection.prepareStatement(
-                    "SELECT * FROM [Module]  WHERE SerialNumber = ?");
+                    "SELECT * FROM [Module]   WHERE SerialNumber = ?");
             query.setInt(1, courseId);
             ResultSet result = query.executeQuery();
 

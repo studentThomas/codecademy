@@ -53,12 +53,12 @@ public class Person {
         return this.certificates;
     }
 
-    // public ArrayList<ContentItem> getModules() {
-    // for (Course course : courses) {
-    // System.out.println(course.getModules(this.email) + "\n");
-    // this.modules = course.getModules(this.email);
-    // }
-    // }
+    public ArrayList<ContentItem> getModules() {
+        for (Course course : courses) {
+            this.modules = course.getModules(this.email);
+        }
+        return this.modules;
+    }
 
     // public void getProgress() {
     // for (Course course : courses) {
