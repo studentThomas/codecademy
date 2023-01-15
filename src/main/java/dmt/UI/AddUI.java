@@ -20,6 +20,7 @@ public class AddUI {
 
         
         AddCourse addCourse = new AddCourse();
+        AddEnrollment addEnrollment = new AddEnrollment();
         
         ScrollPane scrollPane = new ScrollPane();
         BorderPane layout = new BorderPane();
@@ -47,9 +48,9 @@ public class AddUI {
             AddCourseButton.setOnAction((event) -> {
                 layout.setCenter(AddCourse.getView());
             });
-            // AddEnrollmentButton.setOnAction((event) -> {
-            //     layout.setCenter(AddCourse.getView());
-            // });
+             AddEnrollmentButton.setOnAction((event) -> {
+                 layout.setCenter(AddEnrollment.getView());
+             });
             // AddCertificateButton.setOnAction((event) -> {
             //     layout.setCenter(AddCourse.getView());
             // });
