@@ -64,7 +64,7 @@ public class HomeUI extends Application {
 
         // 6. Create the main view and add the high level layout
         Scene view = new Scene(layout, 1200, 750);
-        layout.setStyle("-fx-background: #bfae4b; -fx-border-color: gray;");
+        layout.setStyle("-fx-background: #4357b2; -fx-border-color: gray;");
         // menu.setStyle("-fx-background: yellow; ");
 
         // 7. Show the application

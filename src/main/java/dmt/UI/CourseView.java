@@ -65,11 +65,11 @@ public class CourseView {
 
         Button edit = new Button("Edit");
         edit.setStyle(
-                "-fx-background-color: #3a11e5; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
+                "-fx-background-color: #4357b2; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
 
         Button delete = new Button("Delete");
         delete.setStyle(
-                "-fx-background-color: #eaf0f4; -fx-text-fill: #3a11e5; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
+                "-fx-background-color: #eaf0f4; -fx-text-fill: black; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
 
         Label label2 = new Label(contentItems.size() + " Module(s)");
         Label label1 = new Label("Passed by " + amount + " Person(s)");
@@ -166,13 +166,15 @@ public class CourseView {
                 new Translate(80, 20),
                 new Rotate(-90, 0, 0));
         Label progressText = new Label("Hallo");
+        progressText.setTextFill(Color.web("#10162f"));
         progressText.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         progressText.textProperty().bind(Bindings.format("%.0f%%", progress.progressProperty().multiply(100)));
         progress.setStyle(
-                "-fx-accent: #bfae4b; -fx-background-color: #bfae4b, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
+                "-fx-accent: #4357b2; -fx-background-color: #4357b2, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
 
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);
+        progressText.setPadding(new Insets(0, 20, 0, 0));
 
         moduleInfo.getChildren().addAll(title, description);
         moduleInfo.setPadding(new Insets(20, 20, 20, 40));

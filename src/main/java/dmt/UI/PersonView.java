@@ -61,11 +61,11 @@ public class PersonView {
 
         Button edit = new Button("Edit");
         edit.setStyle(
-                "-fx-background-color: #3a11e5; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
+                "-fx-background-color: #4357b2; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
 
         Button delete = new Button("Delete");
         delete.setStyle(
-                "-fx-background-color: #eaf0f4; -fx-text-fill: #3a11e5; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
+                "-fx-background-color: #eaf0f4; -fx-text-fill: #4357b2; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
 
         buttons.getChildren().addAll(edit, delete);
         edit.setOnAction(event -> {
@@ -78,12 +78,16 @@ public class PersonView {
 
         });
         VBox personInfo = new VBox();
+
         personInfo.setSpacing(10);
         Label user = new Label(person.getName() + " (" + person.getGender() + ")");
+        user.setStyle("-fx-text-fill: #303545;");
         Label email = new Label(person.getEmail());
+        email.setStyle("-fx-text-fill: #303545;");
         email.setWrapText(true);
         email.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
         Label country = new Label(person.getCountry());
+        country.setStyle("-fx-text-fill: #303545;");
 
         personInfo.getChildren().addAll(email, buttons, user, country);
 
@@ -93,6 +97,7 @@ public class PersonView {
         personData.setSpacing(20);
         Label courseLabel = new Label("Course(s)" + " (" + courses.size() + ") ");
         courseLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
+        courseLabel.setStyle("-fx-text-fill: #303545;");
         personData.getChildren().add(courseLabel);
         if (courses.size() > 0) {
             for (Course course : courses) {
@@ -102,6 +107,7 @@ public class PersonView {
         }
         Label webcastLabel = new Label("Webcast(s)" + " (" + webcasts.size() + ") ");
         webcastLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
+        webcastLabel.setStyle("-fx-text-fill: #303545;");
         personData.getChildren().add(webcastLabel);
         if (webcasts.size() > 0) {
             for (ContentItem webcast : webcasts) {
@@ -111,6 +117,7 @@ public class PersonView {
 
         Label certificateLabel = new Label("Certificate(s)" + " (" + certificates.size() + ") ");
         certificateLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
+        certificateLabel.setStyle("-fx-text-fill: #303545;");
         personData.getChildren().add(certificateLabel);
         if (certificates.size() > 0) {
             for (Certificate certificate : certificates) {
@@ -122,9 +129,11 @@ public class PersonView {
         scrollPane.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         layout.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         personData.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
+
         buttons.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
         layout.getChildren().addAll(personInfo, scrollPane);
 
         return layout;
@@ -144,7 +153,7 @@ public class PersonView {
 
         Button button = new Button("Course ->");
         button.setStyle(
-                "-fx-background-color: #3a11e5; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 80px; -fx-pref-height: 25px; -fx-font-size: 12px; -fx-font-weight: bold;");
+                "-fx-background-color: #4357b2; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 80px; -fx-pref-height: 25px; -fx-font-size: 12px; -fx-font-weight: bold;");
         button.setOnAction(event -> {
             layout.getChildren().setAll(courseView.getView(course, true, person));
 
@@ -170,13 +179,16 @@ public class PersonView {
                 new Translate(80, 20),
                 new Rotate(-90, 0, 0));
         Label progressText = new Label("Hallo");
+        progressText.setTextFill(Color.web("#10162f"));
         progressText.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         progressText.textProperty().bind(Bindings.format("%.0f%%", progress.progressProperty().multiply(100)));
+        progressText.setPadding(new Insets(0, 20, 0, 0));
         progress.setStyle(
-                "-fx-accent: #bfae4b; -fx-background-color: #bfae4b, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
+                "-fx-accent: #4357b2; -fx-background-color: #4357b2, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
 
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);
+        progressInfo.setPadding(new Insets(0, 20, 0, 0));
 
         moduleInfo.getChildren().addAll(button, title);
         moduleInfo.setPadding(new Insets(20, 20, 20, 40));
@@ -224,13 +236,15 @@ public class PersonView {
                 new Translate(80, 20),
                 new Rotate(-90, 0, 0));
         Label progressText = new Label("Hallo");
+        progressText.setTextFill(Color.web("#10162f"));
         progressText.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         progressText.textProperty().bind(Bindings.format("%.0f%%", progress.progressProperty().multiply(100)));
         progress.setStyle(
-                "-fx-accent: #bfae4b; -fx-background-color: #bfae4b, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
+                "-fx-accent: #4357b2; -fx-background-color: #4357b2, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
 
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);
+        progressText.setPadding(new Insets(0, 20, 0, 0));
 
         moduleInfo.getChildren().addAll(webcastLabel, title);
         moduleInfo.setPadding(new Insets(20, 30, 20, 30));
