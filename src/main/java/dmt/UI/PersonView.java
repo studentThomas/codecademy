@@ -46,10 +46,7 @@ public class PersonView {
         ArrayList<ContentItem> webcasts = person.getViewedWebcasts();
         ArrayList<Certificate> certificates = person.getCertificates();
         CourseView courseView = new CourseView();
-
-        for (Certificate certificate : certificates) {
-            System.out.println(certificate.getId());
-        }
+        UpdatePerson updatePerson = new UpdatePerson();
 
         // HBox layout = new HBox();
         layout.setPadding(new Insets(20, 20, 20, 20));
@@ -69,7 +66,9 @@ public class PersonView {
 
         buttons.getChildren().addAll(edit, delete);
         edit.setOnAction(event -> {
-            System.out.println("Hallo");
+            layout.getChildren()
+                    .setAll(updatePerson.getView(person.getEmail(), person.getName(), person.getDateOfBirth(),
+                            person.getGender(), person.getAddress(), person.getCountry(), person.getCity()));
         });
         VBox personInfo = new VBox();
         personInfo.setSpacing(10);
@@ -83,7 +82,7 @@ public class PersonView {
 
         VBox personData = new VBox();
         layout.setMinWidth(1200);
-        personData.setPadding(new Insets(20, 35, 20, 10));
+        personData.setPadding(new Insets(20, 40, 20, 0));
         personData.setSpacing(20);
         Label courseLabel = new Label("Course(s)" + " (" + courses.size() + ") ");
         courseLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
@@ -115,6 +114,7 @@ public class PersonView {
         scrollPane.setContent(personData);
         scrollPane.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         layout.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
+        personData.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         buttons.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setFitToWidth(true);
@@ -166,7 +166,7 @@ public class PersonView {
         progressText.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         progressText.textProperty().bind(Bindings.format("%.0f%%", progress.progressProperty().multiply(100)));
         progress.setStyle(
-                "-fx-accent: #ffd302; -fx-background-color: #ffd302, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
+                "-fx-accent: #bfae4b; -fx-background-color: #bfae4b, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
 
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);
@@ -220,7 +220,7 @@ public class PersonView {
         progressText.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         progressText.textProperty().bind(Bindings.format("%.0f%%", progress.progressProperty().multiply(100)));
         progress.setStyle(
-                "-fx-accent: #ffd302; -fx-background-color: #ffd302, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
+                "-fx-accent: #bfae4b; -fx-background-color: #bfae4b, linear-gradient(to bottom, derive(black,60%) 5%, derive(black,90%) 40%); -fx-background-insets: 0, 1;-fx-background-radius: 3px;");
 
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);
