@@ -25,7 +25,7 @@ public class CourseUI {
         for (Course course : courses) {
             Button button = new Button();
             button.setText(course.getName());
-            button.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
+            button.setStyle("-fx-background-color: #bdbdbb; -fx-font-size: 12px; -fx-text-fill: black;");
             vBox.getChildren().add(button);
 
             button.setOnAction((event) -> {
@@ -35,7 +35,7 @@ public class CourseUI {
         }
 
         scrollPane.setContent(vBox);
-        scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");
+        scrollPane.setStyle("-fx-background: white; -fx-border-color: gray;");
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10, 20, 20, 7));
         return layout;

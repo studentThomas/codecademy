@@ -34,7 +34,10 @@ public class AddCourse {
         layout.setCenter(scrollPane);
         
         VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 20, 20, 13));
+        vBox.setSpacing(7);
         VBox vBox2 = new VBox();
+        vBox2.setPadding(new Insets(10, 20, 20, 13));
 
         Label IdAsk = new Label("Enter Id:");
         TextField IdField = new TextField();
@@ -83,11 +86,12 @@ public class AddCourse {
             });
             scrollPane.setContent(vBox2);
             layout2.setCenter(scrollPane2);
+            scrollPane2.setStyle("-fx-background: white; -fx-border-color: gray;");
         }); 
 
         
         scrollPane.setContent(vBox);
-        scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;"); 
+        scrollPane.setStyle("-fx-background: white; -fx-border-color: gray;"); 
 
         return layout;
     }

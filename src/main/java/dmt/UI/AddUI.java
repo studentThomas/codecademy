@@ -28,21 +28,17 @@ public class AddUI {
 
         // add each button
         Button AddPersonButton = new Button("Add a Person");
-        ;
         vBox.getChildren().add(AddPersonButton);
-        AddPersonButton.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
+        AddPersonButton.setStyle("-fx-background-color: #bdbdbb; -fx-font-size: 12px; -fx-text-fill: black");
         Button AddCourseButton = new Button("Add a course");
-        ;
         vBox.getChildren().add(AddCourseButton);
-        AddCourseButton.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
+        AddCourseButton.setStyle("-fx-background-color: #bdbdbb; -fx-font-size: 12px; -fx-text-fill: black");
         Button AddEnrollmentButton = new Button("Add a course enrollment");
-        ;
         vBox.getChildren().add(AddEnrollmentButton);
-        AddEnrollmentButton.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
+        AddEnrollmentButton.setStyle("-fx-background-color: #bdbdbb; -fx-font-size: 12px; -fx-text-fill: black");
         Button AddCertificateButton = new Button("Add a certificate");
-        ;
         vBox.getChildren().add(AddCertificateButton);
-        AddCertificateButton.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
+        AddCertificateButton.setStyle("-fx-background-color: #bdbdbb; -fx-font-size: 12px; -fx-text-fill: black");
 
         AddPersonButton.setOnAction((event) -> {
             layout.setCenter(AddPerson.getView());
@@ -58,7 +54,7 @@ public class AddUI {
         });
 
         scrollPane.setContent(vBox);
-        scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");
+        scrollPane.setStyle("-fx-background: white; -fx-border-color: gray;");
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10, 20, 20, 7));
         return layout;

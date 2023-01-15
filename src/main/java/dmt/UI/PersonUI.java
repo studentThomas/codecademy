@@ -79,7 +79,7 @@ public class PersonUI {
         for (Person person : persons) {
             Button button = new Button();
             button.setText(person.getName());
-            button.setStyle("-fx-background-color: blue; -fx-font-size: 12px; -fx-text-fill: white");
+            button.setStyle("-fx-background-color: #bdbdbb; -fx-font-size: 12px; -fx-text-fill: black;");
             vBox.getChildren().add(button);
 
             button.setOnAction((event) -> {
@@ -90,7 +90,7 @@ public class PersonUI {
         }
         vBox.setSpacing(10);
         scrollPane.setContent(vBox);
-        scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");
+        scrollPane.setStyle("-fx-background: white; -fx-border-color: gray;");
         vBox.setPadding(new Insets(10, 20, 20, 7));
         return layout;
     }

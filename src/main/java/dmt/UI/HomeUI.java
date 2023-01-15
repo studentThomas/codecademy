@@ -42,9 +42,9 @@ public class HomeUI extends Application {
         practiceButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         addButton.setStyle("-fx-background-color: white; -fx-font-size: 12px; -fx-text-fill: black;");
         DropShadow shadow = new DropShadow();
-        shadow.setOffsetX(5);
-        shadow.setOffsetY(5);
-        shadow.setColor(Color.BLUE);
+        shadow.setOffsetX(1);
+        shadow.setOffsetY(1);
+        shadow.setColor(Color.BLACK);
         enterButton.setEffect(shadow);
         practiceButton.setEffect(shadow);
         addButton.setEffect(shadow);
@@ -64,7 +64,7 @@ public class HomeUI extends Application {
 
         // 6. Create the main view and add the high level layout
         Scene view = new Scene(layout, 1200, 750);
-        layout.setStyle("-fx-background-color: red");
+        layout.setStyle("-fx-background: #bfae4b; -fx-border-color: gray;");
 
         // 7. Show the application
 

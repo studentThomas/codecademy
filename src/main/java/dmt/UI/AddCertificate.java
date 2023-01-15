@@ -36,7 +36,10 @@ public class AddCertificate {
         layout.setCenter(scrollPane);
         
         VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 20, 20, 13));
+        vBox.setSpacing(7);
         VBox vBox2 = new VBox();
+        vBox2.setPadding(new Insets(10, 20, 20, 13));
         ComboBox comboBox = new ComboBox();
         for (Person person : persons) {
             comboBox.getItems().add(person.getEmail());
@@ -86,11 +89,12 @@ public class AddCertificate {
             });
             scrollPane.setContent(vBox2);
             layout2.setCenter(scrollPane2);
+            scrollPane2.setStyle("-fx-background: white; -fx-border-color: gray;"); 
         }); 
 
         
         scrollPane.setContent(vBox);
-        scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;"); 
+        scrollPane.setStyle("-fx-background: white; -fx-border-color: gray;");
 
         return layout;
     }
