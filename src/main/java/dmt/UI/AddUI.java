@@ -53,9 +53,15 @@ public class AddUI {
         AddEnrollmentButton.setOnAction((event) -> {
             layout.setCenter(AddEnrollment.getView());
         });
+<<<<<<< Updated upstream
         AddCertificateButton.setOnAction((event) -> {
             layout.setCenter(AddCertificate.getView());
         });
+=======
+        // AddCertificateButton.setOnAction((event) -> {
+        // layout.setCenter(AddCourse.getView());
+        // });
+>>>>>>> Stashed changes
 
         scrollPane.setContent(vBox);
         scrollPane.setStyle("-fx-background: #383838; -fx-border-color: red;");

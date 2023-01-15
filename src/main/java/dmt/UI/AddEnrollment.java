@@ -52,7 +52,12 @@ public class AddEnrollment {
         Label CertificateIdAsk = new Label("Enter CertificateId:");
         TextField CertificateIdField = new TextField();
         Button startButton = new Button("Insert Data");
+<<<<<<< Updated upstream
         vBox.getChildren().addAll(EmailAsk, comboBox, IdAsk, IdField, RegistrationDateAsk, RegistrationDateField, CertificateIdAsk, CertificateIdField, startButton);
+=======
+        vBox.getChildren().addAll(EmailAsk, EmailField, IdAsk, IdField, CertificateIdAsk, CertificateIdField,
+                startButton);
+>>>>>>> Stashed changes
 
         // collect inserted data
         startButton.setOnAction((event) -> {

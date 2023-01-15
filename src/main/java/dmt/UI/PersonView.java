@@ -1,5 +1,6 @@
 package dmt.UI;
 
+import java.beans.EventHandler;
 import java.util.ArrayList;
 
 import dmt.Data.PersonData;
@@ -9,12 +10,14 @@ import dmt.Course;
 import dmt.Person;
 import dmt.Data.DatabaseHandler;
 import javafx.beans.binding.Bindings;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -34,17 +37,21 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 public class PersonView {
-    public static Parent getView(Person person) {
+
+    HBox layout = new HBox();
+
+    public Parent getView(Person person) {
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
         ArrayList<Course> courses = person.getEnrolledCourses();
         ArrayList<ContentItem> webcasts = person.getViewedWebcasts();
         ArrayList<Certificate> certificates = person.getCertificates();
+        CourseView courseView = new CourseView();
 
         for (Certificate certificate : certificates) {
             System.out.println(certificate.getId());
         }
 
-        HBox layout = new HBox();
+        // HBox layout = new HBox();
         layout.setPadding(new Insets(20, 20, 20, 20));
 
         layout.setSpacing(100);
@@ -61,7 +68,9 @@ public class PersonView {
                 "-fx-background-color: #eaf0f4; -fx-text-fill: #3a11e5; -fx-border-radius: 12px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-font-size: 15px; -fx-font-weight: bold;");
 
         buttons.getChildren().addAll(edit, delete);
-
+        edit.setOnAction(event -> {
+            System.out.println("Hallo");
+        });
         VBox personInfo = new VBox();
         personInfo.setSpacing(10);
         Label user = new Label(person.getName() + " (" + person.getGender() + ")");
@@ -75,13 +84,14 @@ public class PersonView {
         VBox personData = new VBox();
         layout.setMinWidth(1200);
         personData.setPadding(new Insets(20, 35, 20, 10));
-        personData.setSpacing(10);
+        personData.setSpacing(20);
         Label courseLabel = new Label("Course(s)" + " (" + courses.size() + ") ");
         courseLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
         personData.getChildren().add(courseLabel);
-        if (webcasts.size() > 0) {
+        if (courses.size() > 0) {
             for (Course course : courses) {
                 personData.getChildren().add(createCourse(course, person));
+
             }
         }
         Label webcastLabel = new Label("Webcast(s)" + " (" + webcasts.size() + ") ");
@@ -103,19 +113,18 @@ public class PersonView {
         }
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(personData);
-        personData.setStyle("-fx-border-color: fffff; -fx-background-color: fffff;");
-        personInfo.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         scrollPane.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         layout.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         buttons.setStyle("-fx-border-color: #f5fcff; -fx-background-color: #f5fcff;");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setFitToWidth(true);
         layout.getChildren().addAll(personInfo, scrollPane);
+
         return layout;
     }
 
-    private static BorderPane createCourse(Course course, Person person) {
-
+    private BorderPane createCourse(Course course, Person person) {
+        CourseView courseView = new CourseView();
         BorderPane borderPane = new BorderPane();
         StackPane stackPane = new StackPane();
 
@@ -125,6 +134,16 @@ public class PersonView {
         rectangle.setFill(Color.WHITE);
         rectangle.setStroke(Color.LIGHTGRAY);
         rectangle.setStrokeWidth(1);
+
+        Button button = new Button("Course ->");
+        button.setStyle(
+                "-fx-background-color: #3a11e5; -fx-text-fill: white; -fx-border-radius: 12px; -fx-pref-width: 80px; -fx-pref-height: 25px; -fx-font-size: 12px; -fx-font-weight: bold;");
+        button.setOnAction(event -> {
+            layout.getChildren().setAll(courseView.getView(course, true, person));
+
+        });
+
+        button.setPadding(new Insets(0));
 
         stackPane.getChildren().add(rectangle);
 
@@ -152,7 +171,7 @@ public class PersonView {
         progressInfo.getChildren().addAll(progress, progressText);
         progressInfo.setSpacing(10);
 
-        moduleInfo.getChildren().addAll(courseLabel, title);
+        moduleInfo.getChildren().addAll(button, title);
         moduleInfo.setPadding(new Insets(20, 20, 20, 40));
         moduleInfo.setSpacing(10);
 
@@ -207,7 +226,7 @@ public class PersonView {
         progressInfo.setSpacing(10);
 
         moduleInfo.getChildren().addAll(webcastLabel, title);
-        moduleInfo.setPadding(new Insets(20, 20, 20, 40));
+        moduleInfo.setPadding(new Insets(20, 30, 20, 30));
         moduleInfo.setSpacing(10);
 
         stackPane.getChildren().addAll(moduleInfo, progress, progressText);

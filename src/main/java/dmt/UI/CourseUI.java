@@ -29,7 +29,7 @@ public class CourseUI {
             vBox.getChildren().add(button);
 
             button.setOnAction((event) -> {
-                layout.setCenter(courseView.getView(course));
+                layout.setCenter(courseView.getView(course, false, null));
             });
 
         }

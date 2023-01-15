@@ -33,10 +33,25 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 public class CourseView {
-    public Parent getView(Course course) {
+    public Parent getView(Course course, boolean person, Person person2) {
 
+        ArrayList<ContentItem> contentItems = new ArrayList<>();
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
-        ArrayList<ContentItem> contentItems = databaseHandler.retrieveCouresModules(course.getId());
+
+        if (person) {
+            contentItems = databaseHandler.getModules(person2.getEmail(), course.getId());
+        } else {
+            contentItems = databaseHandler.retrieveCouresModules(course.getId());
+        }
+
+        for (ContentItem module : contentItems) {
+            System.out.println(module);
+        }
+        // ArrayList<ContentItem> modulesArrayList =
+        // course.getModules(person2.getEmail());
+        // for (ContentItem m : modulesArrayList) {
+        // System.out.println(m.getId() + " " + m.getProgress());
+        // }
         int amount = databaseHandler.retrieveAmoutOfCertificatesPerCourse(course.getId());
 
         HBox hBox = new HBox();
@@ -97,11 +112,12 @@ public class CourseView {
         modules.setPadding(new Insets(40, 20, 10, 0));
 
         vBox.setSpacing(10);
+
         for (ContentItem module : contentItems) {
-            vBox.getChildren().add(createModule(module));
-            vBox.getChildren().add(createModule(module));
+            vBox.getChildren().add(createModule(module, person));
 
         }
+
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(vBox);
         scrollPane.setStyle("-fx-border-color: #f5fcff;; -fx-background-color: #f5fcff;;");
@@ -113,8 +129,7 @@ public class CourseView {
         return layout;
     }
 
-    private BorderPane createModule(ContentItem module) {
-
+    private BorderPane createModule(ContentItem module, boolean person) {
         BorderPane borderPane = new BorderPane();
 
         StackPane stackPane = new StackPane();
@@ -139,7 +154,14 @@ public class CourseView {
         description.setTextFill(Color.web("#10162f"));
 
         ProgressBar progress = new ProgressBar();
-        progress.setProgress(module.getProgressModule() / 100);
+        if (person) {
+            double progressd = (double) module.getProgress();
+            progress.setProgress(progressd / 100);
+        } else {
+            System.out.println(module.getProgressModule());
+            progress.setProgress(module.getProgressModule() / 100);
+        }
+
         progress.getTransforms().setAll(
                 new Translate(80, 20),
                 new Rotate(-90, 0, 0));
