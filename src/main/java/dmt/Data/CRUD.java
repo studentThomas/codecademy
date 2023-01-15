@@ -31,4 +31,15 @@ public class CRUD {
 
         return rowsAffected;
     }
+
+    public void deletePerson(String email) {
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement("DELETE FROM Person WHERE Email = ?");
+            query.setString(1, email);
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

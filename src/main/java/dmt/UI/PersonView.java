@@ -8,6 +8,7 @@ import dmt.Certificate;
 import dmt.ContentItem;
 import dmt.Course;
 import dmt.Person;
+import dmt.Data.CRUD;
 import dmt.Data.DatabaseHandler;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
@@ -43,6 +44,8 @@ public class PersonView {
 
     public Parent getView(Person person) {
         DatabaseHandler databaseHandler = new DatabaseHandler(null);
+        CRUD crud = new CRUD();
+        PersonUI personUI = new PersonUI();
         ArrayList<Course> courses = person.getEnrolledCourses();
         ArrayList<ContentItem> webcasts = person.getViewedWebcasts();
         ArrayList<Certificate> certificates = person.getCertificates();
@@ -70,6 +73,10 @@ public class PersonView {
             layout.getChildren()
                     .setAll(updatePerson.getView(person.getEmail(), person.getName(), person.getDateOfBirth(),
                             person.getGender(), person.getAddress(), person.getCountry(), person.getCity()));
+        });
+        delete.setOnAction(event -> {
+            crud.deletePerson(person.getEmail());
+
         });
         VBox personInfo = new VBox();
         personInfo.setSpacing(10);
