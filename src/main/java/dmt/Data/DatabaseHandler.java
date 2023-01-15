@@ -103,6 +103,59 @@ public class DatabaseHandler {
         return webcasts;
     }
 
+    // public ArrayList<ContentItem> retrieveTopViewedWebcasts() {
+    // try {
+    // Connection connection =
+    // DatabaseConnectionManager.getInstance().getConnection();
+    // PreparedStatement query = connection.prepareStatement(
+    // "SELECT TOP 3 WebcastViewed.Id, Webcast.Title, COUNT(WebcastViewed.Id) as
+    // count FROM WebcastViewed JOIN Webcast ON Webcast.Id = WebcastViewed.Id GROUP
+    // BY WebcastViewed.Id, Webcast.Title ORDER BY count DESC");
+
+    // ResultSet result = query.executeQuery();
+
+    // while (result.next()) {
+    // int id = result.getInt("Id");
+    // String title = result.getString("Title");
+    // String status = result.getString("Status");
+
+    // // haal arralist op database.getviewewebcast
+    // this.webcasts.add(new Webcast(id, null, status, title, status, status, title,
+    // id, id, status));
+    // }
+    // } catch (
+
+    // SQLException e) {
+    // e.printStackTrace();
+    // }
+
+    // return webcasts;
+    // }
+
+    public String retrieveTopViewedWebcasts() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Most watched webcasts: ");
+        try {
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement query = connection.prepareStatement(
+                    "SELECT TOP 3 WebcastViewed.Id, Webcast.Title, COUNT(WebcastViewed.Id) as count FROM WebcastViewed JOIN Webcast ON Webcast.Id = WebcastViewed.Id GROUP BY WebcastViewed.Id, Webcast.Title ORDER BY count DESC");
+            ResultSet result = query.executeQuery();
+
+            while (result.next()) {
+                String title = result.getString("Title");
+                stringBuilder.append(title);
+                stringBuilder.append(", ");
+
+            }
+        } catch (
+
+        SQLException e) {
+            e.printStackTrace();
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 2);
+        return stringBuilder.toString();
+    }
+
     public ArrayList<Course> retrieveEnrolledCourses() {
         try {
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
@@ -318,30 +371,6 @@ public class DatabaseHandler {
 
         return (double) achieved / total * 100;
 
-    }
-
-    public String retrieveTopViewedWebcasts() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Most watched webcasts: ");
-        try {
-            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement query = connection.prepareStatement(
-                    "SELECT TOP 3 WebcastViewed.Id, Webcast.Title, COUNT(WebcastViewed.Id) as count FROM WebcastViewed JOIN Webcast ON Webcast.Id = WebcastViewed.Id GROUP BY WebcastViewed.Id, Webcast.Title ORDER BY count DESC");
-            ResultSet result = query.executeQuery();
-
-            while (result.next()) {
-                String title = result.getString("Title");
-                stringBuilder.append(title);
-                stringBuilder.append(", ");
-
-            }
-        } catch (
-
-        SQLException e) {
-            e.printStackTrace();
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 2);
-        return stringBuilder.toString();
     }
 
     public int retrieveAmoutOfCertificatesPerCourse(int id) {
